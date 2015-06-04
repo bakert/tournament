@@ -1,0 +1,12 @@
+{
+  "databasename": "tournament",
+  "databasehost": "localhost",
+  "databaseusername": "tournament",
+  "databasepassword": "jklasdffdhsjknvmx",
+  "hostname": "/localhost",
+  "basepath": "/tournament",
+  "sessionprefix": "tournament",
+  "logfile": "/var/log/apache2/tournament/log"
+  "fbappid": "FB APP ID HERE",
+  "fbappsecret": "FB APP SECRET HERE",
+}

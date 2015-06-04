@@ -1,0 +1,5 @@
+INSTALL
+
+- Copy config.json.sample to config.json and update with desired values.
+- Visit / and sign in.
+- Visit /setup/ to create database tables and admin entry for current viewer.

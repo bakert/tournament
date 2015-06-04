@@ -1,0 +1,32 @@
+<div>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Event</th>
+      <th>Cost</th>
+      <th>Players</th>
+      <th>Status</th>
+      {{#isAdmin}}
+        <th>Admin</th>
+      {{/isAdmin}}
+    </tr>
+    {{#events}}
+      <tr>
+        <td>{{format}}</td>
+        <td>${{cost}}</td>
+        <td>{{numPlayers}}</td>
+        <td>
+          {{#signedUp}}<a class="btn btn-primary btn-block" href="{{dropUrl}}">Drop</a>{{/signedUp}}
+          {{^signedUp}}<a class="btn btn-primary btn-block" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
+        </td>
+        {{#isAdmin}}
+          <td><a class="btn btn-cancel btn-block" href="{{cancelUrl}}">Cancel</a></td>
+        {{/isAdmin}}
+      </tr>
+    {{/events}}
+  </table>
+  <p>Please note all events costs +$10 for guests.</p>
+  {{#isAdmin}}
+    <p><a href="{{createEventUrl}}">Create an Event</a></p>
+  {{/isAdmin}}
+</div>
