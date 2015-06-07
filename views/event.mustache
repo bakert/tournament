@@ -1,0 +1,29 @@
+<h2>{{format}}</h2>
+
+<p>${{cost}}</p>
+
+{{#dropUrl}}<p><a class="btn btn-primary" href="{{dropUrl}}">Drop</a></p>{{/dropUrl}}
+
+{{#pods}}
+  <a href="{{podUrl}}"><h3>Pod {{podId}}</h3></a>
+  <table class="table table-striped">
+    <tr>
+      <th>Player</th>
+      <th>Pod</th>
+      <th>Seat</th>
+      {{#isAdmin}}<th>Actions</th>{{/isAdmin}}
+    </tr>
+  {{#players}}
+    <tr>
+      <td><a href="http://facebook.com/profile.php?id={{playerId}}"><img src="http://graph.facebook.com/{{playerId}}/picture"></a>
+        {{name}}</td>
+      <td>{{podId}}</td>
+      <td>{{seat}}</td>
+      {{#isAdmin}}<td><a href="{{dropUrl}}">Drop Player</a></td>{{/isAdmin}}
+    </tr>
+  {{/players}}
+  </table>
+  {{#pairUrl}}<p><a href="{{pairUrl}}">Pair Next Round</a></p>{{/pairUrl}}
+{{/pods}}
+
+{{#startUrl}}<p><a href="{{startUrl}}">Start Event</a></p>{{/startUrl}}

@@ -17,7 +17,7 @@ class Setup {
 
       "CREATE TABLE event ("
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
-        . "`date` DATETIME NOT NULL,"
+        . "started BOOLEAN NOT NULL,"
         . "format NVARCHAR(256) NOT NULL,"
         . "cost INT NOT NULL"
         . ") Engine = InnoDB DEFAULT CHARSET=UTF8",
@@ -25,7 +25,7 @@ class Setup {
       "CREATE TABLE pod ("
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
         . "event_id INT NOT NULL,"
-        . "FOREIGN KEY (event_id) REFERENCES event (id)"
+        . "FOREIGN KEY (event_id) REFERENCES event (id) "
           . "ON UPDATE NO ACTION ON DELETE CASCADE"
         . ") Engine = InnoDB DEFAULT CHARSET=UTF8",
 
@@ -33,7 +33,10 @@ class Setup {
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
         . "pod_id INT NOT NULL,"
         . "player_id BIGINT NOT NULL,"
-        . "FOREIGN KEY (pod_id) REFERENCES pod (id)"
+        . "seat INT NOT NULL,"
+        . "CONSTRAINT UNIQUE (pod_id, player_id),"
+        . "CONSTRAINT UNIQUE (pod_id, seat),"
+        . "FOREIGN KEY (pod_id) REFERENCES pod (id) "
           . "ON UPDATE NO ACTION ON DELETE CASCADE"
         . ") Engine = InnoDB DEFAULT CHARSET=UTF8",
 
@@ -41,7 +44,34 @@ class Setup {
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
         . "event_id INT NOT NULL,"
         . "player_id BIGINT NOT NULL,"
-        . "FOREIGN KEY (event_id) REFERENCES event (id)"
+        . "CONSTRAINT UNIQUE (event_id, player_id),"
+        . "FOREIGN KEY (event_id) REFERENCES event (id) "
+          . "ON UPDATE NO ACTION ON DELETE CASCADE"
+        . ") Engine = InnoDB DEFAULT CHARSET=UTF8",
+
+      "CREATE TABLE round ("
+        . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
+        . "pod_id INT NOT NULL,"
+        . "round_number INT NOT NULL,"
+        . "CONSTRAINT UNIQUE (pod_id, round_number),"
+        . "FOREIGN KEY (pod_id) REFERENCES pod (id) "
+          . "ON UPDATE NO ACTION ON DELETE CASCADE"
+        . ") Engine = InnoDB DEFAULT CHARSET=UTF8",
+
+      "CREATE TABLE `match` ("
+        . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
+        . "round_id INT NOT NULL,"
+        . "FOREIGN KEY (round_id) REFERENCES round (id) "
+          . "ON UPDATE NO ACTION ON DELETE CASCADE"
+        . ") Engine = InnoDB DEFAULT CHARSET=UTF8",
+
+      "CREATE TABLE player_match ("
+        . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
+        . "player_id INT NOT NULL,"
+        . "match_id INT NOT NULL,"
+        . "wins INT,"
+        . "CONSTRAINT UNIQUE (player_id, match_id),"
+        . "FOREIGN KEY (match_id) REFERENCES `match` (id) "
           . "ON UPDATE NO ACTION ON DELETE CASCADE"
         . ") Engine = InnoDB DEFAULT CHARSET=UTF8",
 
@@ -53,12 +83,17 @@ class Setup {
       "INSERT INTO admin (player_id) VALUES (" . Q(S()->id()) . ")"
 
     ];
-    ob_end_flush();
     foreach ($statements as $statement) {
-      D()->write($statement);
+      try {
+        echo "$statement<p>";
+        var_dump(D()->execute($statement));
+      } catch (DatabaseException $e) {
+        if (mb_substr($statement, 0, 5) !== 'GRANT') {
+          throw $e;
+        }
+      }
+      echo "<hr>";
     }
-    ob_start();
-    return R('/admin/');
   }
 }
 

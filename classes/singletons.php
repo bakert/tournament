@@ -18,7 +18,7 @@ class Singletons {
       static::$instances = [];
     }
     if (!isset(static::$instances[$name])) {
-      static::$instances[$name] = new $bindings[$name];
+      static::$instances[$name] = new $bindings[$name]();
     }
     return static::$instances[$name];
   }

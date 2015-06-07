@@ -1,0 +1,14 @@
+- Notify players when pods are determined.
+- Add a player after an event has started.
+- Use POST not GET for write actions (start event, etc.)
+- Creating pods and starting event should be a transaction.
+- Does profile linking work? It doesn't for my id.
+- Starting an event with 0 people leads to an error but we don't really care.
+- The whole row should be a link?
+- You can't drop if you have an outstanding result
+- Ability to undo/go back and re-pair, etc.
+- Checking for admin/required params/etc. should be in Page or similar
+- D()->value instead of pullling out single values
+- db is returning strings for COUNT(*) in awaitingPairings which is bad.
+- Do all db failures throw exceptions or is it possible to have silent failure?
+  More checking of return values?

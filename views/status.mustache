@@ -11,16 +11,26 @@
       {{/isAdmin}}
     </tr>
     {{#events}}
-      <tr>
-        <td>{{format}}</td>
+      <tr{{#signedUp}} class="success"{{/signedUp}}>
+        <td><a href="{{eventUrl}}">{{format}}</td>
         <td>${{cost}}</td>
         <td>{{numPlayers}}</td>
         <td>
-          {{#signedUp}}<a class="btn btn-primary btn-block" href="{{dropUrl}}">Drop</a>{{/signedUp}}
-          {{^signedUp}}<a class="btn btn-primary btn-block" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
+          {{^started}}
+            {{#signedUp}}<a class="btn btn-primary btn-block" href="{{dropUrl}}">Drop</a>{{/signedUp}}
+            {{^signedUp}}<a class="btn btn-primary btn-block" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
+          {{/started}}
+          {{#started}}
+            Started
+          {{/started}}
         </td>
         {{#isAdmin}}
-          <td><a class="btn btn-cancel btn-block" href="{{cancelUrl}}">Cancel</a></td>
+          <td>
+            {{^started}}
+              <a class="btn btn-link" href="{{startUrl}}">Start</a>
+              <a class="btn btn-cancel" href="{{cancelUrl}}">Cancel</a>
+            {{/started}}
+          </td>
         {{/isAdmin}}
       </tr>
     {{/events}}

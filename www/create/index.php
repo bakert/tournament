@@ -7,12 +7,10 @@ class Create extends Page {
     if (!A()->isAdmin()) {
       return R('/');
     }
-    if (!isset($_POST['date'])
-        || !isset($_POST['format'])
-        || !isset($_POST['cost'])) {
+    if (!isset($_POST['format']) || !isset($_POST['cost'])) {
       return R('/newevent/');
     }
-    (new Events())->create($_POST['date'], $_POST['format'], $_POST['cost']);
+    (new Events())->create($_POST['format'], $_POST['cost']);
     return R('/');
   }
 }

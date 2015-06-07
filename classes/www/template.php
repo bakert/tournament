@@ -18,12 +18,20 @@ class Template {
   }
 
   private function renderHeader() {
-    $cssUrl = U('/css/tournament.css');
-    return $this->engine->render('header', ['cssUrl' => $cssUrl]);
+    $args = [
+      'cssUrl' => U('/css/tournament.css'),
+      'homeUrl' => U('/')
+    ];
+    return $this->engine->render('header', $args);
   }
 
   private function renderFooter() {
-    $signOutUrl = (S()->isSignedIn()) ? U('/signout/') : null;
-    return $this->engine->render('footer', ['logoutUrl' => $signOutUrl]);
+    $args = [];
+    if (S()->isSignedIn()) {
+      $args['signOutUrl'] = U('/signout/');
+    } elseif ($_SERVER['REQUEST_URI'] !== U('/')) {
+      $args['signInUrl'] = U('/signin/');
+    }
+    return $this->engine->render('footer', $args);
   }
 }

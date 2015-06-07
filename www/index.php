@@ -19,9 +19,11 @@ class Index extends Page {
     $args['isAdmin'] = A()->isAdmin();
     $args['dropUrl'] = U('/drop/');
     $args['createEventUrl'] = U('/newevent/');
-    $args['events'] = (new Events())->allEvents(S()->id());
+    $args['events'] = (new Events())->currentEvents(S()->id());
     foreach ($args['events'] as &$event) {
+      $event['eventUrl'] = U('/event/', false, ['event_id' => $event['id']]);
       $event['signUpUrl'] = U('/signup/', false, ['event_id' => $event['id']]);
+      $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
       $event['cancelUrl'] = U('/cancel/', false, ['event_id' => $event['id']]);
     }
     return T()->status($args);

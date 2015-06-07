@@ -5,6 +5,8 @@ date_default_timezone_set('UTC');
 require_once(__DIR__ . '/vendor/autoload.php');
 spl_autoload_register([new Autoloader(), 'load']);
 
+require_once(__DIR__ . '/shared/masort.php');
+
 class Autoloader {
   public function load($name) {
     foreach (['', 'exceptions/', 'www/'] as $dir) {

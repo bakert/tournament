@@ -15,7 +15,7 @@ function A() {
 }
 
 function R($path) {
-  return Singletons::R()-redirect($path);
+  return Singletons::R()->redirectTo($path);
 }
 
 function S() {
