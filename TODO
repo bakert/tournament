@@ -24,3 +24,7 @@
 - The bye gets a broken profile pic and you have to enter a result - can do it automatically and display more nicely.
 - It's surely possible to avoid the firstRound/subsequentRound thing in Pod.
 - Pairings algorithm has bugs in the case that r2 is entirely draws ... might reveal deeper more commonly encountered bugs. See screenshot on desktop for exact repro case.
+- Alignment on pod page is gross, as is inline form.
+- Inclination of admin on pod page is to fill in multiple results but that is not respected.
+- Admin must be able to drop players.
+- Players must be able to drop themselves.
