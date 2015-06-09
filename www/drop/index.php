@@ -4,8 +4,13 @@ require_once(__DIR__ . '/../tournament-www.php');
 
 class Drop extends Page {
   public function main() {
-    //BAKERT use the supplied playerId but only if you are that person or you are an admin
-    (new Events())->drop(S()->id());
+    if (!isset($_GET['player_id'])) {
+      return R('/');
+    }
+    $player_id = $_GET['player_id'];
+    if (S()->id() === $playerId || A()->isAdmin()) {
+      (new Events())->drop($playerId);
+    }
     return R('/');
   }
 }

@@ -17,7 +17,7 @@ class Index extends Page {
 
   function status() {
     $args['isAdmin'] = A()->isAdmin();
-    $args['dropUrl'] = U('/drop/');
+    $args['dropUrl'] = U('/drop/', false, ['player_id' => S()->id()]);
     $args['createEventUrl'] = U('/newevent/');
     $args['events'] = (new Events())->currentEvents(S()->id());
     foreach ($args['events'] as &$event) {
