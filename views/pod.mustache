@@ -5,23 +5,33 @@
   <table class="table table-striped">
     {{#matches}}
       <tr>
-        <td>{{>profilepic}} {{name}}</td><td>{{wins}}</td>
-        <td> - </td>
-        <td class="r">{{opponentWins}}</td><td>{{opponentName}} {{#opponentUrl}}<a href="http://facebook.com/profile.php?id={{opponentId}}"><img src="http://graph.facebook.com/{{opponentId}}/picture"></a>{{/opponentUrl}}</td>
+        <td>
+          {{>profilepic}}
+          {{name}}
+          </td>
+          <td class="text-center">
+          <big>{{wins}}</big>
+          {{#reportUrl}}
+            <form class="form-inline" action="{{reportUrl}}">
+              <input type="hidden" name="match_id" value="{{matchId}}">
+              <input class="form-control input-small" name="wins">
+               <big>-</big>
+              <input class="form-control input-small" name="opponent_wins">
+              <input class="btn btn-default" type="submit" value="Go">
+            </form>
+          {{/reportUrl}}
+          {{^reportUrl}}
+          -
+          {{/reportUrl}}
+          <big>{{opponentWins}}</big>
+          </td>
+          <td class="text-right">
+          {{opponentName}}
+          {{#opponentUrl}}
+            <a href="http://facebook.com/profile.php?id={{opponentId}}"><img src="http://graph.facebook.com/{{opponentId}}/picture"></a>
+          {{/opponentUrl}}
+        </td>
       </tr>
-      {{#reportUrl}}
-      <form action="{{reportUrl}}">
-        <input type="hidden" name="match_id" value="{{matchId}}">
-        <tr>
-          <td class="r"><input name="wins"></td>
-          <td></td>
-          <td> - </td>
-          <td></td>
-          <td><input name="opponent_wins">
-          <input type="submit" value="Go"></td>
-        </tr>
-      </form>
-      {{/reportUrl}}
     {{/matches}}
   </table>
 {{/rounds}}

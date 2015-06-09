@@ -19,7 +19,6 @@ class Template {
 
   private function renderHeader() {
     $args = [
-      'cssUrl' => U('/css/tournament.css'),
       'homeUrl' => U('/')
     ];
     return $this->engine->render('header', $args);
