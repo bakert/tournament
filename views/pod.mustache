@@ -2,6 +2,28 @@
 {{#rounds}}
   <h3>Round {{roundNumber}}</h3>
   {{#matches}}
-    {{>profilepic}} {{wins}} {{opponentId}} {{opponentWins}}
+    <div>
+      <table>
+        <tr>
+          <td>{{>profilepic}}</td><td>{{wins}}</td>
+          <td> – </td>
+          <td class="r">{{opponentWins}}</td><td><a href="http://facebook.com/profile.php?id={{opponentId}}"><img src="http://graph.facebook.com/{{opponentId}}/picture"></a></td>
+        </tr>
+        {{#reportUrl}}
+        <form action="{{reportUrl}}">
+          <input type="hidden" name="match_id" value="{{matchId}}">
+          <tr>
+            <td><input name="wins"></td>
+            <td></td>
+            <td> – </td>
+            <td></td>
+            <td><input name="opponent_wins">
+            <input type="submit" value="Go"></td>
+          </tr>
+        </form>
+        {{/reportUrl}}
+      </table>
+      <hr>
+    </div>
   {{/matches}}
 {{/rounds}}

@@ -13,6 +13,18 @@ class PodPage extends Page {
     if (A()->isAdmin() && $pod->awaitingPairings()) {
       $args['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
     }
+    foreach ($args['rounds'] as &$round) {
+      foreach ($round['matches'] as &$match) {
+        $needsReport = $match['wins'] === null;
+        $canReport = A()->isAdmin()
+            || $match['playerId'] === S()->id()
+            || $match['opponentId'] === S()->id();
+        if ($needsReport && $canReport) {
+          $queryString = ['match_id' => $match['matchId']];
+          $match['reportUrl'] = U('/report/', false, $queryString);
+        }
+      }
+    }
     return T()->pod($args);
   }
 }

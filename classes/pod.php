@@ -3,22 +3,18 @@
 class Pod {
   public function __construct($podId) {
     $this->podId = $podId;
-
     $sql = 'SELECT m.id AS match_id, '
-      . 'pp.player_id, pm2.player_id AS opponent_id, '
-      . 'pm1.wins, pm2.wins AS opponent_wins, '
-      . 'r.id AS round_id, r.round_number '
-      . 'FROM player_pod AS pp '
-      . 'LEFT JOIN round AS r ON r.pod_id = pp.pod_id '
-      . 'LEFT JOIN `match` AS m ON m.round_id = r.id '
-      . 'LEFT JOIN player_match AS pm1 ON pm1.match_id = m.id '
-      . 'LEFT JOIN player_match AS pm2 ON pm2.match_id = m.id AND pm2.player_id != pm1.player_id '
-      . 'WHERE pp.pod_id = ' . Q($podId)
-      . ' AND pp.player_id != 0 ' // Exclude the bye as antagonist from results.
-      . 'ORDER BY m.round_id';
+      . 'pm1.player_id, pm2.player_id AS opponent_id, '
+      . 'pm1.wins, pm2.wins AS opponent_wins, r.id AS round_id, r.round_number '
+      . 'FROM `match` AS m '
+      . 'INNER JOIN round AS r ON r.id = m.round_id '
+      . 'INNER JOIN player_match AS pm1 ON pm1.match_id = m.id '
+      . 'INNER JOIN player_match AS pm2 ON pm2.match_id = m.id '
+        . 'AND pm2.player_id != pm1.player_id '
+      . 'WHERE r.pod_id = ' . Q($podId) . ' AND pm1.player_id != 0 '
+      . 'ORDER BY m.round_id DESC, pm1.match_id, pm1.player_id';
     $matches = D()->execute($sql);
     list($players, $rounds) = [[], []];
-    $this->matches = $matches;
     foreach ($matches as $match) {
       $playerId = $match['player_id'];
       if (!isset($players[$playerId])) {
@@ -37,13 +33,14 @@ class Pod {
             'matches' => []
           ];
         }
-        // Don't add a match twice.
-        if (!isset($rounds[$roundId]['matches'][$match['opponent_id']])) {
-          $rounds[$roundId]['matches'][$match['player_id']] = [
+        // Don't add a match twice even though they appear twice is resultset.
+        if (!isset($rounds[$roundId]['matches'][$match['match_id']])) {
+          $rounds[$roundId]['matches'][$match['match_id']] = [
+            'matchId' => $match['match_id'],
             'playerId' => $match['player_id'],
             'opponentId' => $match['opponent_id'],
             'wins' => $match['wins'],
-            'opponentWins' => $match['opponentWins']
+            'opponentWins' => $match['opponent_wins']
           ];
         }
       }
