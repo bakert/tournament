@@ -2,7 +2,7 @@
 
 <p>${{cost}}</p>
 
-{{#dropUrl}}<p><a class="btn btn-primary" href="{{dropUrl}}">Drop</a></p>{{/dropUrl}}
+{{#topDropUrl}}<p><a class="btn btn-primary" href="{{topDropUrl}}">Drop</a></p>{{/topDropUrl}}
 
 {{#pods}}
   {{#podUrl}}<a href="{{podUrl}}"><h3>Pod {{podId}}</h3></a>{{/podUrl}}
@@ -16,7 +16,7 @@
   {{#players}}
     <tr>
       <td>{{>profilepic}}
-        <a href="{{url}}">{{name}}</a></td>
+        <a href="{{url}}">{{name}}</a> {{#dropped}}(dropped){{/dropped}}</td>
       <td>{{podId}}</td>
       <td>{{seat}}</td>
       {{#isAdmin}}<td>{{/isAdmin}}
@@ -29,3 +29,4 @@
 {{/pods}}
 
 {{#startUrl}}<p><a href="{{startUrl}}">Start Event</a></p>{{/startUrl}}
+{{#endUrl}}<p><a href="{{endUrl}}">End Event</a></p>{{/endUrl}}

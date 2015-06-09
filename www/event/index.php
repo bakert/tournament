@@ -14,8 +14,21 @@ class EventPage extends Page {
       return R('/');
     }
     $args = (array)$event;
+    foreach ($args['players'] as $player) {
+      if (!$player['dropped'] && $player['playerId'] === S()->id()) {
+        $args['topDropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
+      }
+    }
     if (A()->isAdmin()) {
       $args['isAdmin'] = true;
+      foreach ($args['pods'] as &$pod) {
+        foreach ($pod['players'] as &$player) {
+          if (!$player['dropped']) {
+            $player['dropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
+          }
+        }
+      }
+
       if (!$event->started()) {
         $args['startUrl'] = U('/start/', false, ['event_id' => $eventId]);
       } else {
@@ -26,19 +39,8 @@ class EventPage extends Page {
           if ($pod['awaitingPairings']) {
             $pod['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
           }
-          if (A()->isAdmin()) {
-            foreach ($pod['players'] as &$player) {
-              if (!$player['dropped']) {
-                $player['dropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
-              }
-            }
-          }
         }
-      }
-    }
-    foreach ($event->players() as $player) {
-      if (!$player['dropped'] && $player['playerId'] === S()->id()) {
-        $args['dropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
+        $args['endUrl'] = U('/end/', false, ['event_id' => $eventId]);
       }
     }
     return T()->event($args);

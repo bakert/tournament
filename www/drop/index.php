@@ -7,7 +7,7 @@ class Drop extends Page {
     if (!isset($_GET['player_id'])) {
       return R('/');
     }
-    $player_id = $_GET['player_id'];
+    $playerId = $_GET['player_id'];
     if (S()->id() === $playerId || A()->isAdmin()) {
       (new Events())->drop($playerId);
     }

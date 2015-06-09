@@ -24,6 +24,7 @@ class Setup {
       "CREATE TABLE event ("
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
         . "started BOOLEAN NOT NULL,"
+        . "finished BOOLEAN NOT NULL,"
         . "format NVARCHAR(256) NOT NULL,"
         . "cost INT NOT NULL"
         . ") Engine = InnoDB DEFAULT CHARSET=UTF8",

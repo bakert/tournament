@@ -82,4 +82,9 @@ class Event {
   public function pods() {
     return $this->pods;
   }
+
+  public function end() {
+    $sql = 'UPDATE event SET finished = TRUE WHERE id = ' . Q($this->eventId);
+    return D()->execute($sql);
+  }
 }

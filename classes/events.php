@@ -16,14 +16,17 @@ class Events {
       . 'INNER JOIN event AS e ON pe.event_id = e.id '
       . 'WHERE NOT started AND player_id = ' . Q($playerId);
     $t->execute($sql);
-    $sql = 'UPDATE player_event SET dropped = TRUE WHERE player_id = ' . Q($playerId);
+    $sql = 'UPDATE player_event '
+        . 'SET dropped = TRUE '
+      . 'WHERE player_id = ' . Q($playerId)
+      . ' AND event_id IN (SELECT event_id FROM event WHERE NOT finished)';
     $t->execute($sql);
     return $t->commit();
   }
 
   public function create($format, $cost) {
-    $sql = 'INSERT INTO event (started, format, cost) VALUES '
-      . '(FALSE, ' . Q($format) . ', ' . Q($cost) . ')';
+    $sql = 'INSERT INTO event (started, finished, format, cost) VALUES '
+      . '(FALSE, FALSE, ' . Q($format) . ', ' . Q($cost) . ')';
     return D()->execute($sql);
   }
 
@@ -50,6 +53,7 @@ class Events {
       $sql .= ' AS signedUp '
         . 'FROM event AS e '
         . 'LEFT JOIN player_event AS pe ON e.id = pe.event_id '
+        . 'WHERE NOT e.finished '
         . 'GROUP BY e.id';
       $this->events = D()->execute($sql);
     }
