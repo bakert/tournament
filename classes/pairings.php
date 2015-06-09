@@ -92,7 +92,7 @@ class Pairings {
 
   private function havePlayed($p1, $p2) {
     foreach ($p1['opponents'] as $opponentId) {
-      if ($p2['player_id'] === $opponentId) {
+      if ($p2['playerId'] === $opponentId) {
         return true;
       }
       if ($p2 === null && $opponentId === 0) {
