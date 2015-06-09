@@ -1,10 +1,11 @@
 <?php
 
 class Events {
-  public function signUp($eventId, $playerId) {
+  public function signUp($eventId, $playerId, $name, $url) {
     $this->drop($playerId);
-    $sql = 'INSERT INTO player_event (event_id, player_id) VALUES '
-      . '(' . Q($eventId) . ', ' . Q($playerId) . ')';
+    $sql = 'INSERT INTO player_event (event_id, player_id, name, url) VALUES '
+      . '(' . Q($eventId) . ', ' . Q($playerId) . ', '
+      . Q($name) . ', ' . Q($url) . ')';
     return D()->execute($sql);
   }
 

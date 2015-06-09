@@ -15,8 +15,8 @@
     </tr>
   {{#players}}
     <tr>
-      <td>{{>profilepic}}</a>
-        {{name}}</td>
+      <td>{{>profilepic}}
+        <a href="{{url}}">{{name}}</a></td>
       <td>{{podId}}</td>
       <td>{{seat}}</td>
       {{#isAdmin}}<td><a href="{{dropUrl}}">Drop Player</a></td>{{/isAdmin}}

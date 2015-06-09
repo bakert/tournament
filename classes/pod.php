@@ -3,6 +3,32 @@
 class Pod {
   public function __construct($podId) {
     $this->podId = $podId;
+    $sql = 'SELECT COUNT(*) FROM round WHERE pod_id = ' . Q($podId);
+    if (D()->value($sql) > 0) {
+      $this->subsequentRound();
+    } else {
+      $this->firstRound();
+    }
+  }
+
+  public function firstRound() {
+    $sql = 'SELECT player_id '
+      . 'FROM player_pod '
+      . 'WHERE pod_id = ' .Q($this->podId);
+    $rs = D()->execute($sql);
+    $players = [];
+    foreach ($rs as $player) {
+      $players[] = [
+        'playerId' => $player['player_id'],
+        'opponents' => [],
+        'points' => 0
+      ];
+    }
+    $this->rounds = [];
+    $this->players = $players;
+  }
+
+  public function subsequentRound() {
     $sql = 'SELECT m.id AS match_id, '
       . 'pm1.player_id, pm2.player_id AS opponent_id, '
       . 'pm1.wins, pm2.wins AS opponent_wins, r.id AS round_id, r.round_number '
@@ -11,7 +37,7 @@ class Pod {
       . 'INNER JOIN player_match AS pm1 ON pm1.match_id = m.id '
       . 'INNER JOIN player_match AS pm2 ON pm2.match_id = m.id '
         . 'AND pm2.player_id != pm1.player_id '
-      . 'WHERE r.pod_id = ' . Q($podId) . ' AND pm1.player_id != 0 '
+      . 'WHERE r.pod_id = ' . Q($this->podId) . ' AND pm1.player_id != 0 '
       . 'ORDER BY m.round_id DESC, pm1.match_id, pm1.player_id';
     $matches = D()->execute($sql);
     list($players, $rounds) = [[], []];

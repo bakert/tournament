@@ -50,6 +50,8 @@ class Setup {
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
         . "event_id INT NOT NULL,"
         . "player_id BIGINT NOT NULL,"
+        . "name NVARCHAR(1024) NOT NULL,"
+        . "url NVARCHAR(1024) NOT NULL,"
         . "CONSTRAINT UNIQUE (event_id, player_id),"
         . "FOREIGN KEY (event_id) REFERENCES event (id) "
           . "ON UPDATE NO ACTION ON DELETE CASCADE"

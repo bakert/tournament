@@ -2,6 +2,9 @@
 
 class Pairings {
   public function __construct($players) {
+    if (!$players) {
+      throw new IllegalStateException('Asked to get pairings with no players.');
+    }
     $this->players = $players;
   }
 

@@ -23,6 +23,10 @@ class Session {
     $this->set('id', null);
   }
 
+  public function accessToken() {
+    return $this->get('accessToken');
+  }
+
   private function get($key) {
     return $_SESSION[C()->sessionprefix() . $key];
   }

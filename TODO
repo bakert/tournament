@@ -20,3 +20,6 @@
 - Rationalize event/pod -- event should just be a holding pen really - pod is where the acton happens
 - It's a bit fragile that player/opponent has a stable ordering that we rely on.
 - Throw an IllegalStateException in pod if we try to load a pod id that doesn't exist, and catch in pod/index.
+- A profile pic is insufficient.
+- The bye gets a broken profile pic and you have to enter a result - can do it automatically and display more nicely.
+- It's surely possible to avoid the firstRound/subsequentRound thing in Pod.

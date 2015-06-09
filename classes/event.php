@@ -19,7 +19,7 @@ class Event {
     $this->started = $event['started'];
 
     if ($this->started) {
-      $sql = 'SELECT pe.player_id, pp.pod_id, pp.seat '
+      $sql = 'SELECT pe.player_id, pe.name, pe.url, pp.pod_id, pp.seat '
         . 'FROM player_event AS pe '
         . 'INNER JOIN pod AS p ON p.event_id = pe.event_id '
         . 'INNER JOIN player_pod AS pp ON pp.pod_id = p.id '
@@ -27,7 +27,7 @@ class Event {
         . 'WHERE pe.event_id = ' . Q($eventId)
         . ' ORDER BY p.id, pp.seat';
     } else {
-      $sql = "SELECT player_id, '-' AS pod_id, '-' AS seat "
+      $sql = "SELECT player_id, '-' AS pod_id, '-' AS seat, name, url "
         . 'FROM player_event '
         . 'WHERE event_id = ' . Q($eventId);
     }
@@ -47,8 +47,10 @@ class Event {
       }
       $player = [
         'playerId' => $player['player_id'],
-        'podId' => isset($player['pod_id']) ? $player['pod_id'] :  '-',
-        'seat' => isset($player['seat']) ? $player['seat'] : '-'
+        'podId' => $player['pod_id'],
+        'seat' => $player['seat'],
+        'name' => $player['name'],
+        'url' => $player['url']
       ];
       $pod[] = $player;
       $this->players[] = $player;
