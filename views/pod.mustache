@@ -1,29 +1,26 @@
 {{#pairUrl}}<p><a href="{{pairUrl}}">Pair Next Round</a>{{/pairUrl}}
 {{#rounds}}
   <h3>Round {{roundNumber}}</h3>
-  {{#matches}}
-    <div>
-      <table>
+  <table>
+    {{#matches}}
+      <tr>
+        <td>{{>profilepic}} {{name}}</td><td>{{wins}}</td>
+        <td> - </td>
+        <td class="r">{{opponentWins}}</td><td>{{opponentName}} {{#opponentUrl}}<a href="http://facebook.com/profile.php?id={{opponentId}}"><img src="http://graph.facebook.com/{{opponentId}}/picture"></a>{{/opponentUrl}}</td>
+      </tr>
+      {{#reportUrl}}
+      <form action="{{reportUrl}}">
+        <input type="hidden" name="match_id" value="{{matchId}}">
         <tr>
-          <td>{{>profilepic}}</td><td>{{wins}}</td>
-          <td> – </td>
-          <td class="r">{{opponentWins}}</td><td><a href="http://facebook.com/profile.php?id={{opponentId}}"><img src="http://graph.facebook.com/{{opponentId}}/picture"></a></td>
+          <td><input name="wins"></td>
+          <td></td>
+          <td> - </td>
+          <td></td>
+          <td><input name="opponent_wins">
+          <input type="submit" value="Go"></td>
         </tr>
-        {{#reportUrl}}
-        <form action="{{reportUrl}}">
-          <input type="hidden" name="match_id" value="{{matchId}}">
-          <tr>
-            <td><input name="wins"></td>
-            <td></td>
-            <td> – </td>
-            <td></td>
-            <td><input name="opponent_wins">
-            <input type="submit" value="Go"></td>
-          </tr>
-        </form>
-        {{/reportUrl}}
-      </table>
-      <hr>
-    </div>
-  {{/matches}}
+      </form>
+      {{/reportUrl}}
+    {{/matches}}
+  </table>
 {{/rounds}}

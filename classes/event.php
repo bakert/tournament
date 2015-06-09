@@ -49,7 +49,7 @@ class Event {
         'playerId' => $player['player_id'],
         'podId' => $player['pod_id'],
         'seat' => $player['seat'],
-        'name' => $player['name'],
+        'name' => $player['name'] ?: 'BYE',
         'url' => $player['url']
       ];
       $pod[] = $player;

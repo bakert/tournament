@@ -30,13 +30,19 @@ class Pod {
 
   public function subsequentRound() {
     $sql = 'SELECT m.id AS match_id, '
+      . 'pe1.name, pe1.url, '
+      . 'pe2.name AS opponent_name, pe2.url AS opponent_url, '
       . 'pm1.player_id, pm2.player_id AS opponent_id, '
       . 'pm1.wins, pm2.wins AS opponent_wins, r.id AS round_id, r.round_number '
       . 'FROM `match` AS m '
       . 'INNER JOIN round AS r ON r.id = m.round_id '
+      . 'INNER JOIN pod AS p ON p.id = r.pod_id '
       . 'INNER JOIN player_match AS pm1 ON pm1.match_id = m.id '
       . 'INNER JOIN player_match AS pm2 ON pm2.match_id = m.id '
         . 'AND pm2.player_id != pm1.player_id '
+      . 'INNER JOIN player_event AS pe1 ON pe1.player_id = pm1.player_id AND pe1.event_id = p.event_id '
+      // LEFT because BYE does not have an entry.
+      . 'LEFT JOIN player_event AS pe2 ON pe2.player_id = pm2.player_id AND pe2.event_id = p.event_id '
       . 'WHERE r.pod_id = ' . Q($this->podId) . ' AND pm1.player_id != 0 '
       . 'ORDER BY m.round_id DESC, pm1.match_id, pm1.player_id';
     $matches = D()->execute($sql);
@@ -44,7 +50,13 @@ class Pod {
     foreach ($matches as $match) {
       $playerId = $match['player_id'];
       if (!isset($players[$playerId])) {
-        $players[$playerId] = ['playerId' => $playerId, 'opponents' => [], 'points' => 0];
+        $players[$playerId] = [
+          'playerId' => $playerId,
+          'opponents' => [],
+          'points' => 0,
+          'name' => $match['name'] ?: 'BYE',
+          'url' => $match['url']
+        ];
       }
       if ($match['match_id'] !== null) {
         $players[$playerId]['opponents'][] = $match['opponent_id'];
@@ -66,7 +78,11 @@ class Pod {
             'playerId' => $match['player_id'],
             'opponentId' => $match['opponent_id'],
             'wins' => $match['wins'],
-            'opponentWins' => $match['opponent_wins']
+            'opponentWins' => $match['opponent_wins'],
+            'name' => $match['name'] ?: 'BYE',
+            'url' => $match['url'],
+            'opponentName' => $match['opponent_name'] ?: 'BYE',
+            'opponentUrl' => $match['opponent_url'],
           ];
         }
       }
@@ -115,13 +131,20 @@ class Pod {
   }
 
   private function store($roundId, $pairings) {
-    $matchesSql = 'INSERT INTO player_match (match_id, player_id) VALUES ';
+    $matchesSql = 'INSERT INTO player_match (match_id, player_id, wins) VALUES ';
     foreach ($pairings as $pairing) {
       $sql = 'INSERT INTO `match` (round_id) VALUES (' . Q($roundId) . ')';
       $this->t->execute($sql);
       $matchId = $this->t->id();
-      $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[0]['playerId']) . '), ';
-      $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[1]['playerId']) . '), ';
+      if ($pairing[1]['playerId'] === 0) {
+        $wins = 2;
+        $opponentWins = 0;
+      } else {
+        $wins = null;
+        $opponentWins = null;
+      }
+      $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[0]['playerId']) . ', ' . Q($wins) . '), ';
+      $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[1]['playerId']) . ', ' . Q($opponentWins) . '), ';
     }
     $matchesSql = chop($matchesSql, ', ');
     return $this->t->execute($matchesSql);
