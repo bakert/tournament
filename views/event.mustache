@@ -5,7 +5,7 @@
 {{#dropUrl}}<p><a class="btn btn-primary" href="{{dropUrl}}">Drop</a></p>{{/dropUrl}}
 
 {{#pods}}
-  <a href="{{podUrl}}"><h3>Pod {{podId}}</h3></a>
+  {{#podUrl}}<a href="{{podUrl}}"><h3>Pod {{podId}}</h3></a>{{/podUrl}}
   <table class="table table-striped">
     <tr>
       <th>Player</th>
