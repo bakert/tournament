@@ -52,6 +52,7 @@ class Setup {
         . "player_id BIGINT NOT NULL,"
         . "name NVARCHAR(1024) NOT NULL,"
         . "url NVARCHAR(1024) NOT NULL,"
+        . "dropped BOOLEAN NOT NULL,"
         . "CONSTRAINT UNIQUE (event_id, player_id),"
         . "FOREIGN KEY (event_id) REFERENCES event (id) "
           . "ON UPDATE NO ACTION ON DELETE CASCADE"

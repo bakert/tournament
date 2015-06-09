@@ -26,12 +26,19 @@ class EventPage extends Page {
           if ($pod['awaitingPairings']) {
             $pod['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
           }
+          if (A()->isAdmin()) {
+            foreach ($pod['players'] as &$player) {
+              if (!$player['dropped']) {
+                $player['dropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
+              }
+            }
+          }
         }
       }
     }
     foreach ($event->players() as $player) {
-      if ($player['playerId'] === S()->id()) {
-        $args['dropUrl'] = U('/drop/');
+      if (!$player['dropped'] && $player['playerId'] === S()->id()) {
+        $args['dropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
       }
     }
     return T()->event($args);

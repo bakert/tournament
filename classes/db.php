@@ -1,7 +1,5 @@
 <?php
 
-require_once(__DIR__ . '/../shared/db.php');
-
 class Db {
   public function execute($sql) {
     $result = db(

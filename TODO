@@ -20,3 +20,4 @@
 - Admin must be able to drop players.
 - Players must be able to drop themselves.
 - Stale page should probably not be able to overwrite existing result, or perhaps check it is the same?
+- Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.

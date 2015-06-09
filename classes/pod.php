@@ -12,16 +12,20 @@ class Pod {
   }
 
   public function firstRound() {
-    $sql = 'SELECT player_id '
-      . 'FROM player_pod '
-      . 'WHERE pod_id = ' .Q($this->podId);
+    $sql = 'SELECT pp.player_id, pe.dropped '
+      . 'FROM player_pod AS pp '
+      . 'INNER JOIN pod AS p ON p.id = pp.pod_id '
+      . 'INNER JOIN player_event AS pe ON pp.player_id = pe.player_id '
+        . 'AND pe.event_id = p.event_id '
+      . 'WHERE pod_id = ' . Q($this->podId);
     $rs = D()->execute($sql);
     $players = [];
     foreach ($rs as $player) {
       $players[] = [
         'playerId' => $player['player_id'],
         'opponents' => [],
-        'points' => 0
+        'points' => 0,
+        'dropped' => $player['dropped']
       ];
     }
     $this->rounds = [];
@@ -32,6 +36,7 @@ class Pod {
     $sql = 'SELECT m.id AS match_id, '
       . 'pe1.name, pe1.url, '
       . 'pe2.name AS opponent_name, pe2.url AS opponent_url, '
+      . 'pe1.dropped, pe2.dropped AS opponent_dropped, '
       . 'pm1.player_id, pm2.player_id AS opponent_id, '
       . 'pm1.wins, pm2.wins AS opponent_wins, r.id AS round_id, r.round_number '
       . 'FROM `match` AS m '
@@ -55,7 +60,8 @@ class Pod {
           'opponents' => [],
           'points' => 0,
           'name' => $match['name'] ?: 'BYE',
-          'url' => $match['url']
+          'url' => $match['url'],
+          'dropped' => $match['dropped']
         ];
       }
       if ($match['match_id'] !== null) {
@@ -81,8 +87,10 @@ class Pod {
             'opponentWins' => $match['opponent_wins'],
             'name' => $match['name'] ?: 'BYE',
             'url' => $match['url'],
+            'dropped' => $match['dropped'],
             'opponentName' => $match['opponent_name'] ?: 'BYE',
             'opponentUrl' => $match['opponent_url'],
+            'opponentDropped' => $match['opponent_dropped'],
           ];
         }
       }

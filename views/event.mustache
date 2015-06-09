@@ -19,7 +19,9 @@
         <a href="{{url}}">{{name}}</a></td>
       <td>{{podId}}</td>
       <td>{{seat}}</td>
-      {{#isAdmin}}<td><a href="{{dropUrl}}">Drop Player</a></td>{{/isAdmin}}
+      {{#isAdmin}}<td>{{/isAdmin}}
+        {{#dropUrl}}<a href="{{dropUrl}}">Drop Player</a>{{/dropUrl}}
+      {{#isAdmin}}</td>{{/isAdmin}}
     </tr>
   {{/players}}
   </table>

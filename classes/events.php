@@ -3,18 +3,22 @@
 class Events {
   public function signUp($eventId, $playerId, $name, $url) {
     $this->drop($playerId);
-    $sql = 'INSERT INTO player_event (event_id, player_id, name, url) VALUES '
+    $sql = 'INSERT INTO player_event (event_id, player_id, name, url, dropped) VALUES '
       . '(' . Q($eventId) . ', ' . Q($playerId) . ', '
-      . Q($name) . ', ' . Q($url) . ')';
+      . Q($name) . ', ' . Q($url) . ', FALSE)';
     return D()->execute($sql);
   }
 
   public function drop($playerId) {
+    $t = new Transaction();
     $sql = 'DELETE pe '
       . 'FROM player_event AS pe '
       . 'INNER JOIN event AS e ON pe.event_id = e.id '
       . 'WHERE NOT started AND player_id = ' . Q($playerId);
-    return D()->execute($sql);
+    $t->execute($sql);
+    $sql = 'UPDATE player_event SET dropped = TRUE WHERE player_id = ' . Q($playerId);
+    $t->execute($sql);
+    return $t->commit();
   }
 
   public function create($format, $cost) {

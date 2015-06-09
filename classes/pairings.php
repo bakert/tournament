@@ -5,7 +5,11 @@ class Pairings {
     if (!$players) {
       throw new IllegalStateException('Asked to get pairings with no players.');
     }
-    $this->players = $players;
+    foreach ($players as $player) {
+      if (!$player['dropped']) {
+        $this->players[] = $player;
+      }
+    }
   }
 
   public function pair() {
