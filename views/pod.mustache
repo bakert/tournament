@@ -1,7 +1,8 @@
+<h2>Pod {{podId}}</h2>
 {{#pairUrl}}<p><a href="{{pairUrl}}">Pair Next Round</a>{{/pairUrl}}
 {{#rounds}}
   <h3>Round {{roundNumber}}</h3>
-  <table>
+  <table class="table table-striped">
     {{#matches}}
       <tr>
         <td>{{>profilepic}} {{name}}</td><td>{{wins}}</td>
@@ -12,7 +13,7 @@
       <form action="{{reportUrl}}">
         <input type="hidden" name="match_id" value="{{matchId}}">
         <tr>
-          <td><input name="wins"></td>
+          <td class="r"><input name="wins"></td>
           <td></td>
           <td> - </td>
           <td></td>

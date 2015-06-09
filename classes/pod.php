@@ -140,8 +140,8 @@ class Pod {
         $wins = 2;
         $opponentWins = 0;
       } else {
-        $wins = null;
-        $opponentWins = null;
+        $wins = 'NULL';
+        $opponentWins = 'NULL';
       }
       $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[0]['playerId']) . ', ' . Q($wins) . '), ';
       $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[1]['playerId']) . ', ' . Q($opponentWins) . '), ';
