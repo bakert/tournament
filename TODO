@@ -1,30 +1,22 @@
 - Notify players when pods are determined.
 - Add a player after an event has started.
 - Use POST not GET for write actions (start event, etc.)
-- Creating pods and starting event should be a transaction.
-- Does profile linking work? It doesn't for my id.
 - Starting an event with 0 people leads to an error but we don't really care.
-- The whole row should be a link?
-- You can't drop if you have an outstanding result
+- The whole row on home page should be a link
 - Ability to undo/go back and re-pair, etc.
-- Checking for admin/required params/etc. should be in Page or similar
-- db is returning strings for COUNT(*) in awaitingPairings which is bad.
-- Do all db failures throw exceptions or is it possible to have silent failure?
-  More checking of return values?
+- Checking for admin/required params/etc. should be in Page or a trait or something similar
+- db code is returning strings for COUNT(*) in awaitingPairings which is bad.
 - Drop button appears too much and doesn't work in all contexts
-- Pod page before pairings should show players in pod
+- Pod page after event starts but before pairings should show players/seating of pod but is just blank
 - "Your outstanding result" front and center and on every page
 - Opponent profile pic not using profilepic is gross
 - Some way to end event
 - Standings on pod page
 - Rationalize event/pod -- event should just be a holding pen really - pod is where the acton happens
-- It's a bit fragile that player/opponent has a stable ordering that we rely on.
 - Throw an IllegalStateException in pod if we try to load a pod id that doesn't exist, and catch in pod/index.
-- A profile pic is insufficient.
-- The bye gets a broken profile pic and you have to enter a result - can do it automatically and display more nicely.
 - It's surely possible to avoid the firstRound/subsequentRound thing in Pod.
-- Pairings algorithm has bugs in the case that r2 is entirely draws ... might reveal deeper more commonly encountered bugs. See screenshot on desktop for exact repro case.
 - Alignment on pod page is gross, as is inline form.
 - Inclination of admin on pod page is to fill in multiple results but that is not respected.
 - Admin must be able to drop players.
 - Players must be able to drop themselves.
+- Stale page should probably not be able to overwrite existing result, or perhaps check it is the same?
