@@ -1,1 +1,7 @@
-Pod page goes here
+{{#pairUrl}}<p><a href="{{pairUrl}}">Pair Next Round</a>{{/pairUrl}}
+{{#rounds}}
+  <h3>Round {{roundNumber}}</h3>
+  {{#matches}}
+    {{>profilepic}} {{wins}} {{opponentId}} {{opponentWins}}
+  {{/matches}}
+{{/rounds}}

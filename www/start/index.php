@@ -7,11 +7,16 @@ class Start extends Page {
     if (!isset($_GET['event_id']) || !A()->isAdmin()) {
       return R('/');
     }
-    $event = new Event($_GET['event_id']);
+    $eventId = $_GET['event_id'];
+    try {
+      $event = new Event($eventId);
+    } catch (IllegalStateException $e) {
+      return R('/');
+    }
     if ($event->started()) {
       return R('/');
     }
-    (new Pods())->createPods($_GET['event_id']);
+    (new Pods())->createPods($eventId);
     R('/');
   }
 }

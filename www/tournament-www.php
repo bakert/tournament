@@ -14,8 +14,8 @@ function A() {
   return Singletons::A();
 }
 
-function R($path) {
-  return Singletons::R()->redirectTo($path);
+function R($path, $queryString = []) {
+  return Singletons::R()->redirectTo($path, $queryString);
 }
 
 function S() {

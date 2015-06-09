@@ -6,16 +6,19 @@ class Pod {
 
     $sql = 'SELECT m.id AS match_id, '
       . 'pp.player_id, pm2.player_id AS opponent_id, '
-      . 'pm1.wins, pm2.wins AS opponent_wins '
+      . 'pm1.wins, pm2.wins AS opponent_wins, '
+      . 'r.id AS round_id, r.round_number '
       . 'FROM player_pod AS pp '
-      . 'LEFT JOIN round AS r ON r.id = pp.pod_id '
+      . 'LEFT JOIN round AS r ON r.pod_id = pp.pod_id '
       . 'LEFT JOIN `match` AS m ON m.round_id = r.id '
       . 'LEFT JOIN player_match AS pm1 ON pm1.match_id = m.id '
       . 'LEFT JOIN player_match AS pm2 ON pm2.match_id = m.id AND pm2.player_id != pm1.player_id '
       . 'WHERE pp.pod_id = ' . Q($podId)
-      . ' ORDER BY m.round_id';
+      . ' AND pp.player_id != 0 ' // Exclude the bye as antagonist from results.
+      . 'ORDER BY m.round_id';
     $matches = D()->execute($sql);
-    $players = [];
+    list($players, $rounds) = [[], []];
+    $this->matches = $matches;
     foreach ($matches as $match) {
       $playerId = $match['player_id'];
       if (!isset($players[$playerId])) {
@@ -25,24 +28,46 @@ class Pod {
         $players[$playerId]['opponents'][] = $match['opponent_id'];
         $players[$playerId]['points'] += $this->points($match['wins'], $match['opponent_wins']);
       }
+      $roundId = $match['round_id'];
+      if ($roundId !== null) {
+        if (!isset($rounds[$roundId])) {
+          $rounds[$roundId] = [
+            'roundId' => $roundId,
+            'roundNumber' => $match['round_number'],
+            'matches' => []
+          ];
+        }
+        // Don't add a match twice.
+        if (!isset($rounds[$roundId]['matches'][$match['opponent_id']])) {
+          $rounds[$roundId]['matches'][$match['player_id']] = [
+            'playerId' => $match['player_id'],
+            'opponentId' => $match['opponent_id'],
+            'wins' => $match['wins'],
+            'opponentWins' => $match['opponentWins']
+          ];
+        }
+      }
     }
+    foreach ($rounds as &$round) {
+      $round['matches'] = array_values($round['matches']);
+    }
+    $this->rounds = array_values($rounds);
     $this->players = array_values($players);
+  }
+
+  public function rounds() {
+    return $this->rounds;
   }
 
   public function pair() {
     if (!$this->awaitingPairings()) {
       throw new IllegalStateException('Called pair when not awaitingPairings');
     }
-    try {
-      $this->t = new Transaction();
-      $roundId = $this->createRound();
-      $pairings = (new Pairings($this->players()))->pair();
-      $this->store($roundId, $pairings);
-      return $this->t->commit();
-    } catch (DatabaseException $e) {
-      $this->t->rollback();
-      throw $e;
-    }
+    $this->t = new Transaction();
+    $roundId = $this->createRound();
+    $pairings = (new Pairings($this->players()))->pair();
+    $this->store($roundId, $pairings);
+    return $this->t->commit();
   }
 
   public function awaitingPairings() {
@@ -63,19 +88,17 @@ class Pod {
     $sql = 'INSERT INTO round (pod_id, round_number) VALUES '
       . '(' . Q($this->podId) . ', ' . Q($roundNumber) . ')';
     $this->t->execute($sql);
-    $sql = 'SELECT LAST_INSERT_ID() AS round_id';
-    return D()->value($sql);
+    return $this->t->id();
   }
 
   private function store($roundId, $pairings) {
     $matchesSql = 'INSERT INTO player_match (match_id, player_id) VALUES ';
     foreach ($pairings as $pairing) {
       $sql = 'INSERT INTO `match` (round_id) VALUES (' . Q($roundId) . ')';
-      D()->execute($sql);
-      $sql = 'SELECT LAST_INSERT_ID() AS match_id';
-      $matchId = D()->value($sql);
-      $matchesSql .= '(' . Q($matchId) . ', ' . $pairing[0]['playerId'] . '), ';
-      $matchesSql .= '(' . Q($matchId) . ', ' . $pairing[1]['playerId'] . '), ';
+      $this->t->execute($sql);
+      $matchId = $this->t->id();
+      $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[0]['playerId']) . '), ';
+      $matchesSql .= '(' . Q($matchId) . ', ' . Q($pairing[1]['playerId']) . '), ';
     }
     $matchesSql = chop($matchesSql, ', ');
     return $this->t->execute($matchesSql);

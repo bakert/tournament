@@ -13,7 +13,7 @@ class Pairings {
       if (isset($permutation[$i + 1])) {
         $secondPlayer = $permutation[$i + 1];
       } else {
-        $secondPlayer = ['player_id' => 0, 'points' => 0];
+        $secondPlayer = ['playerId' => 0, 'points' => 0];
       }
       $pairings[] = [$permutation[$i], $secondPlayer];
     }

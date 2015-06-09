@@ -8,12 +8,18 @@ class Setup {
       return R('/');
     }
 
-    $statements = [
-      "USE " . C()->databasename(),
+    if (!C()->databasename() || !C()->databaseusername()
+        || !C()->databasehost() || !C()->databasepassword()) {
+      return '<p>Add databasename, datausername, databasehose and '
+        . 'databasepassword values to config.json and reload this page.<p>';
+    }
 
-      "GRANT ALL ON " . C()->databasename() . ".* TO "
-        . C()->databaseusername() . "@" . C()->databasehost()
-        . " IDENTIFIED BY " . Q(C()->databasepassword()),
+    $this->useSuccessful = false;
+    register_shutdown_function([$this, 'databaseUnavailable']);
+    D()->execute("USE " . C()->databasename());
+    $this->useSuccessful = true;
+
+    $statements = [
 
       "CREATE TABLE event ("
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
@@ -67,7 +73,7 @@ class Setup {
 
       "CREATE TABLE player_match ("
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
-        . "player_id INT NOT NULL,"
+        . "player_id BIGINT NOT NULL,"
         . "match_id INT NOT NULL,"
         . "wins INT,"
         . "CONSTRAINT UNIQUE (player_id, match_id),"
@@ -94,6 +100,19 @@ class Setup {
       }
       echo "<hr>";
     }
+  }
+
+  public function databaseUnavailable() {
+    if (!$this->useSuccessful) {
+      echo '<p>Issue the following commands in MySQL, then reload this '
+        . 'page:</p>'
+        . '<pre>'
+        . 'CREATE DATABASE tournament;'
+        . 'GRANT ALL ON ' . C()->databasename() . '' . ".* TO "
+        . C()->databaseusername() . "@" . C()->databasehost()
+        . " IDENTIFIED BY " . Q(C()->databasepassword()) . ';'
+        . '</pre>';
+      }
   }
 }
 

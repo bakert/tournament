@@ -11,6 +11,12 @@ class Db {
       C()->databaseusername(),
       C()->databasepassword()
     );
+    if (C()->debug()) {
+      echo "<hr>";
+      echo $sql;
+      var_dump($result);
+      echo "<hr>";
+    }
     if ($result === false) {
       throw new DatabaseException("Database failure: '$sql'");
     }
@@ -28,5 +34,9 @@ class Db {
       }
     }
     return $rs[0][0];
+  }
+
+  public function id() {
+    return $this->value('SELECT LAST_INSERT_ID()');
   }
 }

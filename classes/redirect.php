@@ -1,8 +1,8 @@
 <?php
 
 class Redirect {
-  public function redirectTo($path) {
-    header('Location: ' . U($path, true /* absolute */));
+  public function redirectTo($path, $queryString = []) {
+    header('Location: ' . U($path, true /* absolute */, $queryString));
     die();
   }
 }

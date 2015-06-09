@@ -7,12 +7,13 @@ class Pair extends Page {
     if (!isset($_GET['pod_id']) || !A()->isAdmin()) {
       return R('/');
     }
-    $pod = new Pod($_GET['pod_id']);
+    $podId = $_GET['pod_id'];
+    $pod = new Pod($podId);
     if (!$pod->awaitingPairings()) {
-      return R('/');
+      return R('/pod/', ['pod_id' => $podId]);
     }
     $pod->pair();
-    return R('/');
+    return R('/pod/', ['pod_id' => $podId]);
   }
 }
 

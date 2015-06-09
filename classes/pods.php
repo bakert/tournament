@@ -3,8 +3,9 @@
 class Pods {
 
   public function createPods($eventId) {
+    $this->t = new Transaction();
     $sql = 'UPDATE event SET started = TRUE WHERE id = ' . Q($eventId);
-    D()->execute($sql);
+    $this->t->execute($sql);
     $players = (new Events())->players($eventId);
     shuffle($players);
     $pods = [];
@@ -23,16 +24,15 @@ class Pods {
           . Q($player['seat']) . '), ';
       }
       $sql = chop($sql, ', ');
-      D()->execute($sql);
+      $this->t->execute($sql);
     }
+    $this->t->commit();
   }
 
   private function createPod($eventId) {
     $sql = 'INSERT INTO pod (event_id) VALUES (' . Q($eventId) . ')';
-    D()->execute($sql);
-    $sql = 'SELECT MAX(id) AS pod_id FROM pod';
-    $rs = D()->execute($sql);
-    return $rs[0]['pod_id'];
+    $this->t->execute($sql);
+    return $this->t->id();
   }
 
   private function determinePods($n) {

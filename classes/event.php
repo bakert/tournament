@@ -10,6 +10,10 @@ class Event {
       . 'WHERE id = ' . Q($eventId);
     $event = current(D()->execute($sql));
 
+    if (!$event) {
+      throw new IllegalStateException("No event with id '$eventId'");
+    }
+
     $this->format = $event['format'];
     $this->cost = $event['cost'];
     $this->started = $event['started'];

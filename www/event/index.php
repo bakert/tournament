@@ -7,19 +7,25 @@ class EventPage extends Page {
     if (!isset($_GET['event_id'])) {
       return R('/');
     }
-    $args = [];
-    $event = new Event($_GET['event_id']);
+    $eventId = $_GET['event_id'];
+    try {
+      $event = new Event($eventId);
+    } catch (IllegalStateException $e) {
+      return R('/');
+    }
     $args = (array)$event;
     if (A()->isAdmin()) {
       $args['isAdmin'] = true;
       if (!$event->started()) {
-        $args['startUrl'] = U('/start/', false, ['event_id' => $_GET['event_id']]);
+        $args['startUrl'] = U('/start/', false, ['event_id' => $eventId]);
       } else {
         foreach ($args['pods'] as &$pod) {
           $podId = $pod['players'][0]['podId'];
           $pod['podId'] = $podId;
           $pod['podUrl'] = U('/pod/', false, ['pod_id' => $podId]);
-          $pod['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
+          if ($pod['awaitingPairings']) {
+            $pod['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
+          }
         }
       }
     }

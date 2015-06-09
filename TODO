@@ -8,7 +8,8 @@
 - You can't drop if you have an outstanding result
 - Ability to undo/go back and re-pair, etc.
 - Checking for admin/required params/etc. should be in Page or similar
-- D()->value instead of pullling out single values
 - db is returning strings for COUNT(*) in awaitingPairings which is bad.
 - Do all db failures throw exceptions or is it possible to have silent failure?
   More checking of return values?
+- Drop button appears too much and doesn't work in all contexts
+- Pod page before pairings should show players in pod

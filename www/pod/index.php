@@ -7,7 +7,13 @@ class PodPage extends Page {
     if (!isset($_GET['pod_id'])) {
       return R('/');
     }
-    return T()->pod(new Pod($_GET['pod_id']));
+    $podId = $_GET['pod_id'];
+    $pod = new Pod($podId);
+    $args = (array)$pod;
+    if (A()->isAdmin() && $pod->awaitingPairings()) {
+      $args['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
+    }
+    return T()->pod($args);
   }
 }
 
