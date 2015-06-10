@@ -19,9 +19,17 @@ class EventPage extends Page {
         $args['topDropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
       }
     }
+    foreach ($args['pods'] as &$pod) {
+      $podId = $pod['players'][0]['podId'];
+      $pod['podId'] = $podId;
+      $pod['podUrl'] = U('/pod/', false, ['pod_id' => $podId]);
+    }
     if (A()->isAdmin()) {
       $args['isAdmin'] = true;
       foreach ($args['pods'] as &$pod) {
+        if ($pod['awaitingPairings']) {
+          $pod['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
+        }
         foreach ($pod['players'] as &$player) {
           if (!$player['dropped']) {
             $player['dropUrl'] = U('/drop/', false, ['player_id' => $player['playerId']]);
@@ -32,14 +40,6 @@ class EventPage extends Page {
       if (!$event->started()) {
         $args['startUrl'] = U('/start/', false, ['event_id' => $eventId]);
       } else {
-        foreach ($args['pods'] as &$pod) {
-          $podId = $pod['players'][0]['podId'];
-          $pod['podId'] = $podId;
-          $pod['podUrl'] = U('/pod/', false, ['pod_id' => $podId]);
-          if ($pod['awaitingPairings']) {
-            $pod['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
-          }
-        }
         $args['endUrl'] = U('/end/', false, ['event_id' => $eventId]);
       }
     }
