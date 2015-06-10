@@ -1,6 +1,8 @@
 <?php
 
 class Events {
+  private $events;
+
   public function signUp($eventId, $playerId, $name, $url) {
     $this->drop($playerId);
     $sql = 'INSERT INTO player_event (event_id, player_id, name, url, dropped) VALUES '
