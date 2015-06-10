@@ -40,6 +40,9 @@ class Session {
   }
 
   private function fetchId() {
+    if ($this->get('accessToken') === null) {
+      return null;
+    }
     $me = (new Facebook\FacebookRequest(
       new Facebook\FacebookSession($this->get('accessToken')), 'GET', '/me'
     ))->execute()->getGraphObject(Facebook\GraphUser::className());
