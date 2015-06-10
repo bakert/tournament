@@ -28,7 +28,11 @@ class Session {
   }
 
   private function get($key) {
-    return $_SESSION[C()->sessionprefix() . $key];
+    $actualKey = C()->sessionprefix() . $key;
+    if (!isset($_SESSION[$actualKey])) {
+      return null;
+    }
+    return $_SESSION[$actualKey];
   }
 
   private function set($key, $value) {
