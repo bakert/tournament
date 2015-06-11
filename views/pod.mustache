@@ -6,8 +6,7 @@
     {{#matches}}
       <tr>
         <td>
-          {{>profilepic}}
-          {{name}}
+          {{>person}}
           </td>
           <td class="text-center">
           <big>{{wins}}</big>
@@ -25,11 +24,10 @@
           {{/reportUrl}}
           <big>{{opponentWins}}</big>
           </td>
-          <td class="text-right">
-          {{opponentName}}
-          {{#opponentUrl}}
-            <a href="http://facebook.com/profile.php?id={{opponentId}}"><img src="http://graph.facebook.com/{{opponentId}}/picture"></a>
-          {{/opponentUrl}}
+          <td>
+          {{#opponent}}
+            {{>person}}
+          {{/opponent}}
         </td>
       </tr>
     {{/matches}}

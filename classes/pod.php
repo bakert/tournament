@@ -88,9 +88,12 @@ class Pod {
             'name' => $match['name'] ?: 'BYE',
             'url' => $match['url'],
             'dropped' => $match['dropped'],
-            'opponentName' => $match['opponent_name'] ?: 'BYE',
-            'opponentUrl' => $match['opponent_url'],
-            'opponentDropped' => $match['opponent_dropped'],
+            'opponent' => [
+              'playerId' => $match['opponent_id'],
+              'name' => $match['opponent_name'] ?: 'BYE',
+              'url' => $match['opponent_url'],
+              'dropped' => $match['opponent_dropped']
+            ]
           ];
         }
       }
