@@ -1,7 +1,6 @@
 - Notify players when pods are determined.
 - Add a player after an event has started.
 - Use POST not GET for write actions (start event, etc.)
-- Starting an event with 0 people leads to an error but we don't really care.
 - The whole row on home page should be a link
 - Ability to undo/go back and re-pair, etc.
 - Checking for admin/required params/etc. should be in Page or a trait or something similar
@@ -18,3 +17,5 @@
 - Inclination of admin on pod page is to fill in multiple results but that is not respected.
 - Stale page should probably not be able to overwrite existing result, or perhaps check it is the same?
 - Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.
+- If you drop, award your current match to your opponent 1-0.
+- Persist sign in.
