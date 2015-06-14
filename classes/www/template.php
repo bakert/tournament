@@ -28,8 +28,6 @@ class Template {
     $args = [];
     if (S()->isSignedIn()) {
       $args['signOutUrl'] = U('/signout/');
-    } elseif ($_SERVER['REQUEST_URI'] !== U('/')) {
-      $args['signInUrl'] = U('/signin/');
     }
     return $this->engine->render('footer', $args);
   }
