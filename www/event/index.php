@@ -22,7 +22,9 @@ class EventPage extends Page {
     foreach ($args['pods'] as &$pod) {
       $podId = $pod['players'][0]['podId'];
       $pod['podId'] = $podId;
-      $pod['podUrl'] = U('/pod/', false, ['pod_id' => $podId]);
+      if ($podId !== '-') {
+        $pod['podUrl'] = U('/pod/', false, ['pod_id' => $podId]);
+      }
     }
     if (A()->isAdmin()) {
       $args['isAdmin'] = true;
