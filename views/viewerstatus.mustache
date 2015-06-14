@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Status</h2>
+  </div>
+  <div class="col-xs-12">
+    <div class="bg-info">
+      {{^eventId}}
+        <p>You are not signed up for any events.</p>
+      {{/eventId}}
+      {{#eventId}}
+        {{#dropped}}
+          <p>You have dropped from <a href="{{eventUrl}}">{{format}}</a>.</p>
+        {{/dropped}}
+        {{^dropped}}
+          {{^podId}}
+            <p>You are signed up for <a href="{{eventUrl}}">{{format}}</a>. The event has not started.</p>
+          {{/podId}}
+          {{#podId}}
+            {{#matchId}}
+              <p>You are playing {{#opponent}}{{>profilepic}} <a href="{{url}}">{{name}}</a>{{/opponent}}
+              <p>Report result: {{#results}}<a class="btn btn-default" href={{url}}>{{display}}</a> {{/results}}</p>
+            {{/matchId}}
+            {{^matchId}}
+              <p>Waiting for next round of <a href="{{podUrl}}">Pod {{podId}}</a> in <a href="{{eventUrl}}">{{format}}</a>.</p>
+            {{/matchId}}
+          {{/podId}}
+        {{/dropped}}
+      {{/eventId}}
+    </div>
+  </div>
+</div>

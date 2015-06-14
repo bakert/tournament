@@ -4,21 +4,23 @@ require_once('tournament-www.php');
 
 class Index extends Page {
 
-  function main() {
+  public function main() {
     if (!S()->isSignedIn()) {
       return $this->signIn();
     }
     return $this->status();
   }
 
-  function signIn() {
+  private function signIn() {
     return T()->signin(['signInUrl' => A()->externalSignInUrl()]);
   }
 
-  function status() {
-    $args['isAdmin'] = A()->isAdmin();
-    $args['dropUrl'] = U('/drop/', false, ['player_id' => S()->id()]);
-    $args['createEventUrl'] = U('/newevent/');
+  private function status() {
+    if (A()->isAdmin()) {
+      $args['isAdmin'] = true;
+      $args['dropUrl'] = U('/drop/', false, ['player_id' => S()->id()]);
+      $args['createEventUrl'] = U('/newevent/');
+    }
     $args['events'] = (new Events())->currentEvents(S()->id());
     foreach ($args['events'] as &$event) {
       $event['eventUrl'] = U('/event/', false, ['event_id' => $event['id']]);

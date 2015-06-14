@@ -1,42 +1,46 @@
-<div>
-
-  <table class="table table-striped">
-    <tr>
-      <th>Event</th>
-      <th>Cost</th>
-      <th>Players</th>
-      <th>Status</th>
-      {{#isAdmin}}
-        <th>Admin</th>
-      {{/isAdmin}}
-    </tr>
-    {{#events}}
-      <tr{{#signedUp}} class="success"{{/signedUp}}>
-        <td><a href="{{eventUrl}}">{{format}}</td>
-        <td>${{cost}}</td>
-        <td>{{numPlayers}}</td>
-        <td>
-          {{^started}}
-            {{#signedUp}}<a class="btn btn-primary btn-block" href="{{dropUrl}}">Drop</a>{{/signedUp}}
-            {{^signedUp}}<a class="btn btn-primary btn-block" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
-          {{/started}}
-          {{#started}}
-            Started
-          {{/started}}
-        </td>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Events</h2>
+  </div>
+  <div class="col-xs-12">
+    <table class="table table-striped">
+      <tr>
+        <th>Event</th>
+        <th>Cost</th>
+        <th>Players</th>
+        <th>Status</th>
         {{#isAdmin}}
-          <td>
-            {{^started}}
-              <a class="btn btn-warning" href="{{startUrl}}">Start</a>
-              <a class="btn btn-warning" href="{{cancelUrl}}">Cancel</a>
-            {{/started}}
-          </td>
+          <th>Admin</th>
         {{/isAdmin}}
       </tr>
-    {{/events}}
-  </table>
-  <p>Please note all events cost +$10 for guests.</p>
-  {{#isAdmin}}
-    <p><a class="btn btn-warning" href="{{createEventUrl}}">Create an Event</a></p>
-  {{/isAdmin}}
+      {{#events}}
+        <tr{{#signedUp}} class="success"{{/signedUp}}>
+          <td><a href="{{eventUrl}}">{{format}}</td>
+          <td>${{cost}}</td>
+          <td>{{numPlayers}}</td>
+          <td>
+            {{^started}}
+              {{#signedUp}}<a class="btn btn-primary btn-block" href="{{dropUrl}}">Drop</a>{{/signedUp}}
+              {{^signedUp}}<a class="btn btn-primary btn-block" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
+            {{/started}}
+            {{#started}}
+              Started
+            {{/started}}
+          </td>
+          {{#isAdmin}}
+            <td>
+              {{^started}}
+                <a class="btn btn-warning" href="{{startUrl}}">Start</a>
+                <a class="btn btn-warning" href="{{cancelUrl}}">Cancel</a>
+              {{/started}}
+            </td>
+          {{/isAdmin}}
+        </tr>
+      {{/events}}
+    </table>
+    <p>Please note all events cost +$10 for guests.</p>
+    {{#isAdmin}}
+      <p><a class="btn btn-warning" href="{{createEventUrl}}">Create an Event</a></p>
+    {{/isAdmin}}
+  </div>
 </div>
