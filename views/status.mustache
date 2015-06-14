@@ -27,16 +27,16 @@
         {{#isAdmin}}
           <td>
             {{^started}}
-              <a class="btn btn-link" href="{{startUrl}}">Start</a>
-              <a class="btn btn-cancel" href="{{cancelUrl}}">Cancel</a>
+              <a class="btn btn-warning" href="{{startUrl}}">Start</a>
+              <a class="btn btn-warning" href="{{cancelUrl}}">Cancel</a>
             {{/started}}
           </td>
         {{/isAdmin}}
       </tr>
     {{/events}}
   </table>
-  <p>Please note all events costs +$10 for guests.</p>
+  <p>Please note all events cost +$10 for guests.</p>
   {{#isAdmin}}
-    <p><a href="{{createEventUrl}}">Create an Event</a></p>
+    <p><a class="btn btn-warning" href="{{createEventUrl}}">Create an Event</a></p>
   {{/isAdmin}}
 </div>
