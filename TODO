@@ -9,13 +9,12 @@
 - Admin status should tell them everything that needs doing (event starting, round pairings, outstanding results, maybe something to do with dropping, time on the rounds)
 
 =Improvements
-- Status bar should tell you what seat you are in if event is started but first round not yet paired.
 - Pod page after event starts but before pairings should show players/seating of pod but is just blank
 - Rationalize event/pod -- event should just be a holding pen really - pod is where the acton happens
 - Alignment on pod page is gross.
 - Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.
 - Persist sign in.
-- Consistent widths in tables.
+- Consistent heights (when buttons/profile pics) and widths (pod page) in tables.
 
 =Internal
 - Use POST not GET for write actions (start event, etc.)
