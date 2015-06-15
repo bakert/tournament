@@ -5,23 +5,23 @@
   <div class="col-xs-12">
     <table class="table table-striped">
       <tr>
-        <th>Event</th>
-        <th>Cost</th>
-        <th>Players</th>
-        <th>Status</th>
+        <th class="col-xs-4">Event</th>
+        <th class="col-xs-1 text-right">Cost</th>
+        <th class="col-xs-1 text-right">Players</th>
+        <th class="col-xs-{{#isAdmin}}1{{/isAdmin}}{{^isAdmin}}6{{/isAdmin}}">Status</th>
         {{#isAdmin}}
-          <th>Admin</th>
+          <th class="col-xs-5">Admin</th>
         {{/isAdmin}}
       </tr>
       {{#events}}
         <tr{{#signedUp}} class="success"{{/signedUp}} data-href="{{eventUrl}}">
           <td><a href="{{eventUrl}}">{{format}}</td>
-          <td>${{cost}}</td>
-          <td>{{numPlayers}}</td>
+          <td class="text-right">${{cost}}</td>
+          <td class="text-right">{{numPlayers}}</td>
           <td>
             {{^started}}
-              {{#signedUp}}<a class="btn btn-primary btn-block" href="{{dropUrl}}">Drop</a>{{/signedUp}}
-              {{^signedUp}}<a class="btn btn-primary btn-block" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
+              {{#signedUp}}<a class="btn btn-primary" href="{{dropUrl}}">Drop</a>{{/signedUp}}
+              {{^signedUp}}<a class="btn btn-primary" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
             {{/started}}
             {{#started}}
               Started
