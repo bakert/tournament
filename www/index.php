@@ -25,7 +25,9 @@ class Index extends Page {
     foreach ($args['events'] as &$event) {
       $event['eventUrl'] = U('/event/', false, ['event_id' => $event['id']]);
       $event['signUpUrl'] = U('/signup/', false, ['event_id' => $event['id']]);
-      $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
+      if ((int)$event['numPlayers'] > 1) {
+        $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
+      }
       $event['cancelUrl'] = U('/cancel/', false, ['event_id' => $event['id']]);
     }
     return T()->status($args);

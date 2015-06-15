@@ -39,8 +39,10 @@ class EventPage extends Page {
         }
       }
 
-      if (!$event->started()) {
+      if (!$event->started() && count($args['players']) > 1) {
         $args['startUrl'] = U('/start/', false, ['event_id' => $eventId]);
+      } else if (!$event->started()) {
+        $args['cancelUrl'] = U('/cancel/', false, ['event_id' => $eventId]);
       } else {
         $args['endUrl'] = U('/end/', false, ['event_id' => $eventId]);
       }
