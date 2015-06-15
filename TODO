@@ -4,7 +4,6 @@
 - Notify players when pods are determined.
 - Add a player after an event has started.
 - Ability to undo/go back and re-pair, etc.
-- "Your outstanding result" front and center and on every page
 - Standings on pod page
 - Time rounds (50 min timer - starts when round is paired? "pair all pods" button? "pair all events" button?)
 - Admin status should tell them everything that needs doing (event starting, round pairings, outstanding results, maybe something to do with dropping, time on the rounds)
