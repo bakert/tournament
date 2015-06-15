@@ -12,10 +12,8 @@
 =Improvements
 - Pod page after event starts but before pairings should show players/seating of pod but is just blank
 - Rationalize event/pod -- event should just be a holding pen really - pod is where the acton happens
-- Alignment on pod page is gross, as is inline form.
-- Inclination of admin on pod page is to fill in multiple results but that is not respected.
+- Alignment on pod page is gross.
 - Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.
-- If you drop, award your current match to your opponent 1-0.
 - Persist sign in.
 - Consistent widths in tables.
 

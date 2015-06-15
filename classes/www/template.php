@@ -59,6 +59,7 @@ class Template {
     $status['format'] = $rs[0]['format'];
     $status['dropped'] = $rs[0]['dropped'];
     $status['eventUrl'] = U('/event/', false, ['event_id' => $status['eventId']]);
+    $status['dropUrl'] = U('/drop/', false, ['player_id' => $playerId]);
 
     if ($status['eventId'] === null || $status['dropped']) {
       return $status;

@@ -13,11 +13,30 @@ class Events {
 
   public function drop($playerId) {
     $t = new Transaction();
+    // Award any outstanding match to the opposing player.
+    $sql = 'SELECT match_id '
+      . 'FROM player_match '
+      . 'WHERE wins IS NULL AND player_id = ' . Q($playerId);
+    $matchId = D()->value($sql, null);
+    if ($matchId !== null) {
+      $sql = 'UPDATE player_match '
+        . 'SET wins = 0 '
+        . 'WHERE match_id = ' . Q($matchId)
+          . ' AND player_id = ' . Q($playerId);
+      $t->execute($sql);
+      $sql = 'UPDATE player_match '
+        . 'SET wins = 1 '
+        . 'WHERE match_id = ' . Q($matchId)
+          . ' AND player_id <> ' . Q($playerId);
+      $t->execute($sql);
+    }
+    // Drop player from any unstarted events.
     $sql = 'DELETE pe '
       . 'FROM player_event AS pe '
       . 'INNER JOIN event AS e ON pe.event_id = e.id '
       . 'WHERE NOT started AND player_id = ' . Q($playerId);
     $t->execute($sql);
+    // Drop player from any started events.
     $sql = 'UPDATE player_event '
         . 'SET dropped = TRUE '
       . 'WHERE player_id = ' . Q($playerId)
