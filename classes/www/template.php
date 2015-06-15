@@ -24,7 +24,7 @@ class Template {
     ];
 
     $args = array_merge($args, $this->viewerStatus(S()->id()));
-    if ($args['matchId']) {
+    if (isset($args['matchId'])) {
       $args['potentialResults'] = (new Results())->potentialResults($args['matchId'], S()->id());
     }
 
