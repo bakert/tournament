@@ -22,7 +22,12 @@
               <p>{{>resultreporter}}</p>
             {{/matchId}}
             {{^matchId}}
-              <p>Waiting for next round of <a href="{{podUrl}}">Pod {{podId}}</a> in <a href="{{eventUrl}}">{{format}}</a>.</p>
+              {{#drafting}}
+                <p>You are drafting in <a href="{{podUrl}}">Pod {{podId}}</a> in seat {{seat}}.</p>
+              {{/drafting}}
+              {{^drafting}}
+                <p>Waiting for next round of <a href="{{podUrl}}">Pod {{podId}}</a> in <a href="{{eventUrl}}">{{format}}</a>.</p>
+              {{/drafting}}
             {{/matchId}}
           {{/podId}}
           <p><a class="btn btn-primary" href="{{dropUrl}}">Drop</a></p>

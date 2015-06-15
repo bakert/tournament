@@ -64,12 +64,17 @@ class Template {
     if ($status['eventId'] === null || $status['dropped']) {
       return $status;
     }
-    $sql = 'SELECT pp.pod_id '
+    $sql = 'SELECT pp.pod_id, pp.seat '
       . 'FROM player_pod AS pp '
       . 'INNER JOIN pod AS p ON p.id = pp.pod_id '
       . 'WHERE p.event_id = ' . Q($status['eventId'])
         . ' AND pp.player_id = ' . Q($playerId);
-    $status['podId'] = D()->value($sql, null);
+    $rs = D()->execute($sql);
+    if (!$rs) {
+      return $status;
+    }
+    $status['podId'] = $rs[0]['pod_id'];
+    $status['seat'] = $rs[0]['seat'];
     $status['podUrl'] = U('/pod/', false, ['pod_id' => $status['podId']]);
     if ($status['podId'] === null) {
       return $status;
@@ -81,6 +86,7 @@ class Template {
       . 'LIMIT 1';
     $rs = D()->execute($sql);
     if (!$rs) {
+      $status['drafting'] = true;
       return $status;
     }
     $status['roundNumber'] = $rs[0]['round_number'];
