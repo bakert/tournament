@@ -8,6 +8,9 @@
 - Ability to undo/go back and re-pair, etc.
 - Time rounds (50 min timer - starts when round is paired? "pair all pods" button? "pair all events" button?)
 - Admin status should tell them everything that needs doing (event starting, round pairings, outstanding results, maybe something to do with dropping, time on the rounds)
+- Past events - show results.
+- DCI number - store them and ask anyone new who signs up if they have one
+- Store "recently seen" people globally and warn the admin when starting an event if someone recently seen is not signed up for an event.
 
 =Improvements
 - Pod page after event starts but before pairings should show players/seating of pod but is just blank
@@ -15,7 +18,6 @@
 - Alignment on pod page is gross.
 - Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.
 - Persist sign in.
-- Consistent heights (when buttons/profile pics) and widths (pod page) in tables.
 
 =Internal
 - Use POST not GET for write actions (start event, etc.)
