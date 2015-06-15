@@ -1,5 +1,4 @@
-=Bugs
-- Drop button appears too much and doesn't work in all contexts
+=Known Bugs
 
 =Features
 - Notify players when pods are determined.
@@ -7,7 +6,8 @@
 - Ability to undo/go back and re-pair, etc.
 - "Your outstanding result" front and center and on every page
 - Standings on pod page
-- Time rounds (50 min timer starts when round is paired).
+- Time rounds (50 min timer - starts when round is paired? "pair all pods" button? "pair all events" button?)
+- Admin status should tell them everything that needs doing (event starting, round pairings, outstanding results, maybe something to do with dropping, time on the rounds)
 
 =Improvements
 - The whole row on home page should be a link
@@ -18,6 +18,7 @@
 - Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.
 - If you drop, award your current match to your opponent 1-0.
 - Persist sign in.
+- Consistent widths in tables.
 
 =Internal
 - Use POST not GET for write actions (start event, etc.)
