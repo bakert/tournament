@@ -23,3 +23,22 @@
     {{/matches}}
   </table>
 {{/rounds}}
+
+<h3>Standings</h3>
+<table class="table table-striped">
+  <tr>
+    <th>Player</th>
+    <th class="text-right">Points</th>
+    <th class="text-right">Game Wins</th>
+    <th class="text-right">Game Losses</th>
+  </tr>
+  {{#standings}}
+    <tr>
+    {{! BAKERT make profile pic work}}
+      <td>{{>profilepic}} {{name}}</td>
+      <td class="text-right">{{points}}</td>
+      <td class="text-right">{{wins}}</td>
+      <td class="text-right">{{losses}}</td>
+    </tr>
+  {{/standings}}
+</table>

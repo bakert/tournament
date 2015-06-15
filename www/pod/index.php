@@ -25,6 +25,7 @@ class PodPage extends Page {
         }
       }
     }
+    $args['standings'] = (new Standings($podId))->getStandings();
     return T()->pod($args);
   }
 }
