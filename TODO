@@ -1,5 +1,6 @@
 =Known Bugs
-- You can sign up for a second event after your first event starts. Is this a bug?
+- You can sign up for a second event after your first event starts. Is this a bug? This is particularly relevant because dropping from the second event also drops you from the in-progress event right now. So fix one thing or the other.
+- Getting the bye a second time and playing someone you have played before are rated the same but it's actually worse to have the bye a second time, I think? More of a theoretical bug than practical.
 
 =Features
 - Notify players when pods are determined.
