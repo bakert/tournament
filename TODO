@@ -1,4 +1,5 @@
 =Known Bugs
+- You can sign up for a second event after your first event starts. Is this a bug?
 
 =Features
 - Notify players when pods are determined.
@@ -25,3 +26,4 @@
 - It's surely possible to avoid the firstRound/subsequentRound thing in Pod.
 - Combine name and profilepic if possible
 - Separate dir for partials if there are going to be a bunch.
+- Some consistency about how we handle _GET params being compared to ints.

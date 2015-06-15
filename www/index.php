@@ -16,9 +16,10 @@ class Index extends Page {
   }
 
   private function status() {
+    $args = [];
+    $args['dropUrl'] = U('/drop/', false, ['player_id' => S()->id()]);
     if (A()->isAdmin()) {
       $args['isAdmin'] = true;
-      $args['dropUrl'] = U('/drop/', false, ['player_id' => S()->id()]);
       $args['createEventUrl'] = U('/newevent/');
     }
     $args['events'] = (new Events())->currentEvents(S()->id());

@@ -31,12 +31,12 @@ function U($path, $absolute = false, $querystring = []) {
 }
 
 function init() {
-    // Redirect to home if not signed in or signing in.
-    $currentPath = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-    $exemptPaths = [U('/'), U('/signin/')];
-    if (!in_array($currentPath, $exemptPaths) && S()->id() === null) {
-      R('/');
-    }
+  // Redirect to home if not signed in or signing in.
+  $currentPath = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+  $exemptPaths = [U('/'), U('/signin/')];
+  if (!in_array($currentPath, $exemptPaths) && S()->id() === null) {
+    R('/');
+  }
 }
 
 init();
