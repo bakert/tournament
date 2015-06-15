@@ -9,20 +9,10 @@
           {{>person}}
           </td>
           <td class="text-center">
-          <big>{{wins}}</big>
-          {{#reportUrl}}
-            <form class="form-inline" action="{{reportUrl}}">
-              <input type="hidden" name="match_id" value="{{matchId}}">
-              <input class="form-control" name="wins">
-               <big>-</big>
-              <input class="form-control" name="opponent_wins">
-              <input class="btn btn-default" type="submit" value="Go">
-            </form>
-          {{/reportUrl}}
-          {{^reportUrl}}
-          -
-          {{/reportUrl}}
-          <big>{{opponentWins}}</big>
+            {{^potentialResults}}
+              <big>{{wins}} - {{opponentWins}}</big>
+            {{/potentialResults}}
+            {{>resultreporter}}
           </td>
           <td>
           {{#opponent}}

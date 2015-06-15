@@ -24,20 +24,8 @@ class Template {
     ];
 
     $args = array_merge($args, $this->viewerStatus(S()->id()));
-    $args['results'] = [];
     if ($args['matchId']) {
-      foreach (['2-0', '2-1', '1-0', '1-1', '0-0', '0-1', '1-2', '0-2'] as $r) {
-        list($wins, $opponentWins) = explode('-', $r);
-        $reportQuerystring = [
-          'match_id' => $args['matchId'],
-          'wins' => $wins,
-          'opponent_wins' => $opponentWins
-        ];
-        $args['results'][] = [
-          'display' => $wins . '-' . $opponentWins,
-          'url' => U('/report/', false, $reportQuerystring)
-        ];
-      }
+      $args['potentialResults'] = (new Results())->potentialResults($args['matchId'], S()->id());
     }
 
     return $this->engine->render('header', $args);

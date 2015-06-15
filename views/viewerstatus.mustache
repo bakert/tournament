@@ -18,7 +18,8 @@
           {{#podId}}
             {{#matchId}}
               <p>You are playing {{#opponent}}{{>profilepic}} <a href="{{url}}">{{name}}</a>{{/opponent}}
-              <p>Report result: {{#results}}<a class="btn btn-default" href={{url}}>{{display}}</a> {{/results}}</p>
+              <p>Report result:</p>
+              <p>{{>resultreporter}}</p>
             {{/matchId}}
             {{^matchId}}
               <p>Waiting for next round of <a href="{{podUrl}}">Pod {{podId}}</a> in <a href="{{eventUrl}}">{{format}}</a>.</p>
