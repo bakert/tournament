@@ -32,7 +32,9 @@ class Template {
   }
 
   private function renderFooter() {
-    $args = [];
+    $args = [
+      'jsUrl' => U('/js/tournament.js')
+    ];
     if (S()->isSignedIn()) {
       $args['signOutUrl'] = U('/signout/');
     }
