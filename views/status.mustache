@@ -14,7 +14,7 @@
         {{/isAdmin}}
       </tr>
       {{#events}}
-        <tr{{#signedUp}} class="success"{{/signedUp}} data-href="{{eventUrl}}">
+        <tr{{#signedUp}} class="success"{{/signedUp}}>
           <td><a href="{{eventUrl}}">{{format}}</td>
           <td class="text-right">${{cost}}</td>
           <td class="text-right">{{numPlayers}}</td>
