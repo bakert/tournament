@@ -5,16 +5,16 @@
   <table class="table table-striped">
     {{#matches}}
       <tr>
-        <td>
+        <td class="col-xs-4">
           {{>person}}
           </td>
-          <td class="text-center">
+          <td class="col-xs-4 text-center">
             {{^potentialResults}}
               <big>{{wins}} - {{opponentWins}}</big>
             {{/potentialResults}}
             {{>resultreporter}}
           </td>
-          <td>
+          <td class="col-xs-4">
           {{#opponent}}
             {{>person}}
           {{/opponent}}
