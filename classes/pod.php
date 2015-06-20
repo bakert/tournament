@@ -11,7 +11,7 @@ class Pod {
     }
   }
 
-  public function firstRound() {
+  private function firstRound() {
     $sql = 'SELECT pp.player_id, pe.dropped '
       . 'FROM player_pod AS pp '
       . 'INNER JOIN pod AS p ON p.id = pp.pod_id '
@@ -32,7 +32,7 @@ class Pod {
     $this->players = $players;
   }
 
-  public function subsequentRound() {
+  private function subsequentRound() {
     $sql = 'SELECT m.id AS match_id, '
       . 'pe1.name, pe1.url, '
       . 'pe2.name AS opponent_name, pe2.url AS opponent_url, '
