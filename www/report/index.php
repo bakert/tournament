@@ -17,6 +17,10 @@ class Report extends Page {
       return R('/pod/', ['pod_id' => $match->podId()]);
     }
     $match->report($_GET['wins'], $_GET['opponent_wins']);
+    $pod = new Pod($match->podId());
+    if ($pod->awaitingPairings() && count($pod->rounds) <= 2) {
+      $pod->pair();
+    }
     return R('/pod/', ['pod_id' => $match->podId()]);
   }
 }

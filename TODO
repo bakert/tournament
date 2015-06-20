@@ -21,8 +21,7 @@
 - Don't just say "Started" on event page - describe current state of an event.
 - Drop button should ask for confirmation.
 - Drop button should not be so close to result reporting in status box.
-- Result reporting buttons should be bigger.
-- Auto-pair R2 and R3 when last result reported.
+- Allow un-drop if it's not too late.
 
 =Internal
 - Use POST not GET for write actions (start event, etc.)
