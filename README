@@ -3,6 +3,8 @@ INSTALL
 - Checkout source.
 - Run 'composer update' from the commandline to get 3rd party libs.
 - Point your PHP5.4+ enabled webserver at www directory.
+- Create a Facebook app at developers.facebook.com/apps and get your app id and
+  app secret.
 - Copy config.json.sample to config.json and update with desired values.
 - Visit / and sign in.
 - Visit /setup/ to create database tables and admin entry for current viewer.
