@@ -29,8 +29,10 @@
           </td>
           {{#isAdmin}}
             <td>
-              {{^started}}
+              {{#startable}}
                 <a class="btn btn-warning" href="{{startUrl}}">Start</a>
+              {{/startable}}
+              {{^started}}
                 <a class="btn btn-warning" href="{{cancelUrl}}">Cancel</a>
               {{/started}}
             </td>
