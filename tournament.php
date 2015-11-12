@@ -20,15 +20,15 @@ class Autoloader {
 }
 
 function C() {
-  return new Config();
+  return Singletons::C();
 }
 
 function D() {
-  return new Db();
+  return Singletons::D();
 }
 
 function L() {
-  return new Log();
+  return Singletons::L();
 }
 
 function Q($s) {
