@@ -10,7 +10,7 @@
 - Time rounds (50 min timer - starts when round is paired? "pair all pods" button? "pair all events" button?)
 - Admin status should tell them everything that needs doing (event starting, round pairings, outstanding results, maybe something to do with dropping, time on the rounds)
 - Past events - show results.
-- DCI number - store them and ask anyone new who signs up if they have one
+- DCI number - store them and ask anyone new who signs up if they have one. Can then sanction events again.
 - Store "recently seen" people globally and warn the admin when starting an event if someone recently seen is not signed up for an event.
 
 =Improvements
