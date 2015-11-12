@@ -21,7 +21,6 @@
 - Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.
 - Persist sign in. (Probably cookie with encrypted id and only check fb login/access token at the point at which we need to talk to fb - sign up only? - https://www.sammyk.me/best-practice-for-facebook-login-with-the-javascript-sdk-and-php-sdk-v4-1)
 - Don't just say "Started" on event page - describe current state of an event.
-- Drop button should ask for confirmation.
 - Drop button should not be so close to result reporting in status box.
 - Allow un-drop if it's not too late.
 
