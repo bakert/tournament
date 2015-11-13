@@ -1,5 +1,4 @@
 =Known Bugs
-- Getting the bye a second time and playing someone you have played before are rated the same but it's actually worse to have the bye a second time, I think? More of a theoretical bug than practical.
 
 =Features
 - Notify players when pods are determined.
@@ -13,7 +12,7 @@
 =Improvements
 - Automatic pairing gives the people in the last match of a round no chance to drop.
 - Pod page after event starts but before pairings should show players/seating of pod but is just blank
-- Rationalize event/pod -- event should just be a holding pen really - pod is where the acton happens
+- Rationalize event/pod -- event should just be a holding pen really - pod is where the action happens
 - Alignment on pod page is gross.
 - Some way to drop players from pod page not just event page? Or rationalize event + pod completely so they are the same thing.
 - Don't just say "Started" on event page - describe current state of an event.
@@ -30,3 +29,6 @@
 - Combine name and profilepic if possible
 - Separate dir for partials if there are going to be a bunch.
 - Some consistency about how we handle _GET params being compared to ints.
+
+=Wontfix
+- Getting the bye a second time and playing someone you have played before are rated the same but it's actually worse to have the bye a second time, I think? More of a theoretical bug than practical.
