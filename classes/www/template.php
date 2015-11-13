@@ -97,6 +97,12 @@ class Template {
         . 'AND m.round_id = ' . Q($rs[0]['round_id'])
         . 'AND pm.wins IS NULL';
     $status['matchId'] = D()->value($sql, null);
+    $sql = 'SELECT ROUND(COUNT(*) / 2) '
+      . 'FROM player_match AS pm '
+      . 'INNER JOIN `match` AS m ON pm.match_id = m.id '
+      . 'WHERE m.round_id = ' . Q($rs[0]['round_id'])
+      . ' AND pm.wins IS NULL';
+    $status['matchesRemaining'] = D()->value($sql);
     if ($status['matchId'] === null) {
       return $status;
     }

@@ -2,7 +2,6 @@
 - Getting the bye a second time and playing someone you have played before are rated the same but it's actually worse to have the bye a second time, I think? More of a theoretical bug than practical.
 
 =Features
-- If you have a bye and matches are ongoing say so don't just say you are waiting for the next round (because when you get a bye in the final round it reads like the final round didn't get paired yet).
 - Notify players when pods are determined.
 - Add a player after an event has started.
 - Ability to undo/go back and re-pair, etc.
