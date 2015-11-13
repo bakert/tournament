@@ -23,12 +23,14 @@ class Index extends Page {
       $args['createEventUrl'] = U('/newevent/');
     }
     $args['events'] = (new Events())->currentEvents(S()->id());
+    $args['signedUpForAny'] = false;
     foreach ($args['events'] as &$event) {
       $event['eventUrl'] = U('/event/', false, ['event_id' => $event['id']]);
       $event['signUpUrl'] = U('/signup/', false, ['event_id' => $event['id']]);
       $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
       $event['cancelUrl'] = U('/cancel/', false, ['event_id' => $event['id']]);
       $event['startable'] = !$event['started'] && (int)$event['numPlayers'] > 1;
+      $args['signedUpForAny'] = $args['signedUpForAny'] || $event['signedUp'];
     }
     return T()->status($args);
   }

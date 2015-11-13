@@ -67,7 +67,7 @@ class Events {
         . 'COUNT(DISTINCT player_id) AS numPlayers, ';
       if ($playerId !== null) {
         $sql .= 'SUM(CASE WHEN player_id = ' . Q($playerId)
-          . ' THEN 1 ELSE 0 END)';
+          . ' AND NOT dropped THEN 1 ELSE 0 END)';
       } else {
         $sql .= 'FALSE';
       }

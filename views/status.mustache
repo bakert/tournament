@@ -21,7 +21,7 @@
           <td>
             {{^started}}
               {{#signedUp}}<a class="btn btn-primary drop" href="{{dropUrl}}">Drop</a>{{/signedUp}}
-              {{^signedUp}}<a class="btn btn-primary" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
+              {{^signedUpForAny}}<a class="btn btn-primary" href="{{signUpUrl}}">Sign Up</a>{{/signedUpForAny}}
             {{/started}}
             {{#started}}
               Started
