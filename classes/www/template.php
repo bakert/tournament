@@ -95,7 +95,7 @@ class Template {
       . 'INNER JOIN `match` AS m ON pm.match_id = m.id '
       . 'WHERE pm.player_id = ' . Q($playerId)
         . 'AND m.round_id = ' . Q($rs[0]['round_id'])
-        . 'AND pm.wins IS NULL';
+        . ' AND pm.wins IS NULL';
     $status['matchId'] = D()->value($sql, null);
     $sql = 'SELECT ROUND(COUNT(*) / 2) '
       . 'FROM player_match AS pm '
