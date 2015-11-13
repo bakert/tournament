@@ -1,0 +1,19 @@
+<form method="post">
+  <h2>Add Player</h2>
+
+  <label for="player_info">Add this player</label>
+  <select name="player_info">
+    {{#players}}
+      <option value="{{info}}">{{display}}</option>
+    {{/players}}
+  </select>
+
+  <label for="pod_info">to this pod</label>
+  <select name="pod_info">
+    {{#pods}}
+      <option value="{{info}}">{{display}}</option>
+    {{/pods}}
+  </select>
+
+  <input class="btn btn-primary btn-block" type="submit">
+</form>

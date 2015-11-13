@@ -61,7 +61,7 @@ class Events {
     return D()->execute($sql);
   }
 
-  public function currentEvents($playerId) {
+  public function currentEvents($playerId = null) {
     if (!$this->events) {
       $sql = 'SELECT e.id, format, cost, started, '
         . 'COUNT(DISTINCT player_id) AS numPlayers, ';

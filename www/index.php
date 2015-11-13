@@ -21,6 +21,7 @@ class Index extends Page {
     if (A()->isAdmin()) {
       $args['isAdmin'] = true;
       $args['createEventUrl'] = U('/newevent/');
+      $args['addPlayerUrl'] = U('/addplayer/');
     }
     $args['events'] = (new Events())->currentEvents(S()->id());
     $args['signedUpForAny'] = false;
