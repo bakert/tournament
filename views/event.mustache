@@ -9,7 +9,6 @@
   <table class="table table-striped">
     <tr>
       <th>Player</th>
-      <th>Pod</th>
       <th>Seat</th>
       {{#isAdmin}}<th>Actions</th>{{/isAdmin}}
     </tr>
@@ -17,7 +16,6 @@
     <tr>
       <td>{{>profilepic}}
         <a href="{{url}}">{{name}}</a> {{#dropped}}(dropped){{/dropped}}</td>
-      <td>{{podId}}</td>
       <td>{{seat}}</td>
       {{#isAdmin}}<td>{{/isAdmin}}
         {{#dropUrl}}<a class="btn btn-warning" href="{{dropUrl}}">Drop Player</a>{{/dropUrl}}
