@@ -21,15 +21,17 @@ class Index extends Page {
     if (A()->isAdmin()) {
       $args['isAdmin'] = true;
       $args['createEventUrl'] = U('/newevent/');
+      $args['addPlayerUrl'] = U('/addplayer/');
     }
     $args['events'] = (new Events())->currentEvents(S()->id());
+    $args['signedUpForAny'] = false;
     foreach ($args['events'] as &$event) {
       $event['eventUrl'] = U('/event/', false, ['event_id' => $event['id']]);
       $event['signUpUrl'] = U('/signup/', false, ['event_id' => $event['id']]);
-      if ((int)$event['numPlayers'] > 1) {
-        $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
-      }
+      $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
       $event['cancelUrl'] = U('/cancel/', false, ['event_id' => $event['id']]);
+      $event['startable'] = !$event['started'] && (int)$event['numPlayers'] > 1;
+      $args['signedUpForAny'] = $args['signedUpForAny'] || $event['signedUp'];
     }
     return T()->status($args);
   }

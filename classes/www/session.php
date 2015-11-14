@@ -4,6 +4,7 @@ class Session {
   public function __construct($accessToken = null) {
     if ($accessToken !== null) {
       $this->set('accessToken', $accessToken);
+      $this->setCookie('accessToken', $accessToken);
     }
   }
 
@@ -15,11 +16,12 @@ class Session {
   }
 
   public function isSignedIn() {
-    return $this->get('accessToken') !== null;
+    return $this->id() !== null;
   }
 
   public function signOut() {
     $this->set('accessToken', null);
+    $this->setCookie('accessToken', null);
     $this->set('id', null);
   }
 
@@ -39,13 +41,32 @@ class Session {
     $_SESSION[C()->sessionprefix() . $key] = $value;
   }
 
+  private function getCookie($key) {
+    $idx = C()->sessionprefix() . $key;
+    return isset($_COOKIE[$idx]) ? $_COOKIE[$idx] : null;
+  }
+
+  private function setCookie($key, $value) {
+    $sixty_days = time() + 60 * 60 * 24 * 60;
+    setcookie(C()->sessionprefix() . $key, $value, $sixty_days, '/');
+  }
+
   private function fetchId() {
     if ($this->get('accessToken') === null) {
+      if ($this->getCookie('accessToken') !== null) {
+        echo "using cookie";
+        $this->set('accessToken', $this->getCookie('accessToken'));
+      } else {
+        return null;
+      }
+    }
+    try {
+      $me = (new Facebook\FacebookRequest(
+        new Facebook\FacebookSession($this->get('accessToken')), 'GET', '/me'
+      ))->execute()->getGraphObject(Facebook\GraphUser::className());
+    } catch (Facebook\FacebookAuthorizationException $e) {
       return null;
     }
-    $me = (new Facebook\FacebookRequest(
-      new Facebook\FacebookSession($this->get('accessToken')), 'GET', '/me'
-    ))->execute()->getGraphObject(Facebook\GraphUser::className());
     return $me->getId();
   }
 }

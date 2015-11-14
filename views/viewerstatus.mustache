@@ -26,7 +26,7 @@
                 <p>You are drafting in <a href="{{podUrl}}">Pod {{podId}}</a> in seat {{seat}}.</p>
               {{/drafting}}
               {{^drafting}}
-                <p>Waiting for next round of <a href="{{podUrl}}">Pod {{podId}}</a> in <a href="{{eventUrl}}">{{format}}</a>.</p>
+                <p>Waiting for next round of <a href="{{podUrl}}">Pod {{podId}}</a> in <a href="{{eventUrl}}">{{format}}</a>. There are {{matchesRemaining}} matches yet to report a result.</p>
               {{/drafting}}
             {{/matchId}}
           {{/podId}}

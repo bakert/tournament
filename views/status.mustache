@@ -21,7 +21,7 @@
           <td>
             {{^started}}
               {{#signedUp}}<a class="btn btn-primary drop" href="{{dropUrl}}">Drop</a>{{/signedUp}}
-              {{^signedUp}}<a class="btn btn-primary" href="{{signUpUrl}}">Sign Up</a>{{/signedUp}}
+              {{^signedUpForAny}}<a class="btn btn-primary" href="{{signUpUrl}}">Sign Up</a>{{/signedUpForAny}}
             {{/started}}
             {{#started}}
               Started
@@ -29,8 +29,10 @@
           </td>
           {{#isAdmin}}
             <td>
-              {{^started}}
+              {{#startable}}
                 <a class="btn btn-warning" href="{{startUrl}}">Start</a>
+              {{/startable}}
+              {{^started}}
                 <a class="btn btn-warning" href="{{cancelUrl}}">Cancel</a>
               {{/started}}
             </td>
@@ -41,6 +43,7 @@
     <p>Please note all events cost +$10 for guests.</p>
     {{#isAdmin}}
       <p><a class="btn btn-warning" href="{{createEventUrl}}">Create an Event</a></p>
+      <p><a class="btn btn-warning" href="{{addPlayerUrl}}">Add a Late Player to a Pod</a></p>
     {{/isAdmin}}
   </div>
 </div>
