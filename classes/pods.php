@@ -51,7 +51,7 @@ class Pods {
     } elseif ($surplus === 4) {
       return array_merge($this->eights(floor($n / 8) - 2), [6, 6]);
     } elseif ($surplus === 5) {
-      return array_merge($this->eights(floor($n / 8) - 2), [7, 6]);
+      return array_merge($this->eights(floor($n / 8) - 1), [7, 6]);
     } elseif ($surplus === 6) {
       return array_merge($this->eights(floor($n / 8)), [6]);
     } elseif ($surplus === 7) {
