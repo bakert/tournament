@@ -54,7 +54,6 @@ class Session {
   private function fetchId() {
     if ($this->get('accessToken') === null) {
       if ($this->getCookie('accessToken') !== null) {
-        echo "using cookie";
         $this->set('accessToken', $this->getCookie('accessToken'));
       } else {
         return null;
