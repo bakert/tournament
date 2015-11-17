@@ -10,6 +10,11 @@ class PodPage extends Page {
     $podId = $_GET['pod_id'];
     $pod = new Pod($podId);
     $args = (array)$pod;
+    $args['minsLeft'] = $pod->minsLeft();
+    # Gross way to get Mustache to display a falsy value.
+    if ($args['minsLeft'] === 0) {
+      $args['minsLeft'] = "0 ";
+    }
     if (A()->isAdmin() && $pod->awaitingPairings()) {
       $args['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
     }

@@ -79,7 +79,8 @@ class Template {
     if ($status['podId'] === null) {
       return $status;
     }
-    $sql = 'SELECT r.id AS round_id, r.round_number '
+    $sql = 'SELECT r.id AS round_id, '
+      . 'UNIX_TIMESTAMP(r.start_time) AS start_time, r.round_number '
       . 'FROM round AS r '
       . 'WHERE pod_id = ' . Q($status['podId'])
       . 'ORDER BY r.round_number DESC '
@@ -88,6 +89,10 @@ class Template {
     if (!$rs) {
       $status['drafting'] = true;
       return $status;
+    }
+    $status['minsLeft'] = round(($rs[0]['start_time'] - time()) / 60) + C()->minsinround();
+    if ($status['minsLeft'] === 0) {
+      $status['minsLeft'] = " 0"; # Gross way to convince mustache to display 0.
     }
     $status['roundNumber'] = $rs[0]['round_number'];
     $sql = 'SELECT pm.match_id '

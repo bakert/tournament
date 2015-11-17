@@ -63,6 +63,7 @@ class Setup {
         . "id INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,"
         . "pod_id INT NOT NULL,"
         . "round_number INT NOT NULL,"
+        . "start_time DATETIME NOT NULL, "
         . "CONSTRAINT UNIQUE (pod_id, round_number),"
         . "FOREIGN KEY (pod_id) REFERENCES pod (id) "
           . "ON UPDATE NO ACTION ON DELETE CASCADE"

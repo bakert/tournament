@@ -3,7 +3,7 @@
 =Features
 - Notify players when pods are determined.
 - Ability to undo/go back and re-pair, etc.
-- Time rounds (50 min timer - starts when round is paired? "pair all pods" button? "pair all events" button?)
+- "Pair all pods" button and/or "Pair all events" button
 - Admin status should tell them everything that needs doing (event starting, round pairings, outstanding results, maybe something to do with dropping, time on the rounds)
 - Past events - show results.
 - DCI number - store them and ask anyone new who signs up if they have one. Can then sanction events again.
@@ -28,6 +28,8 @@
 - Combine name and profilepic if possible
 - Separate dir for partials if there are going to be a bunch.
 - Some consistency about how we handle _GET params being compared to ints.
+- Time left in the round is calculated the same way in two places and grossly manipulated to show "0" in two places - share in some fashion.
+- Time left in the round should have a hidden data-end-time attribute and use javascript to live update.
 
 =Wontfix
 - Getting the bye a second time and playing someone you have played before are rated the same but it's actually worse to have the bye a second time, I think? More of a theoretical bug than practical.

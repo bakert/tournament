@@ -1,5 +1,6 @@
 <h2>Pod {{podId}}</h2>
 {{#pairUrl}}<p><a class="btn btn-warning" href="{{pairUrl}}">Pair Next Round</a>{{/pairUrl}}
+{{#minsLeft}}<p>{{>timeOnTheRound}}</p>{{/minsLeft}}
 {{#rounds}}
   <h3>Round {{roundNumber}}</h3>
   <table class="table table-striped">

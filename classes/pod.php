@@ -38,7 +38,8 @@ class Pod {
       . 'pe2.name AS opponent_name, pe2.url AS opponent_url, '
       . 'pe1.dropped, pe2.dropped AS opponent_dropped, '
       . 'pm1.player_id, pm2.player_id AS opponent_id, '
-      . 'pm1.wins, pm2.wins AS opponent_wins, r.id AS round_id, r.round_number '
+      . 'pm1.wins, pm2.wins AS opponent_wins, r.id AS round_id, '
+      . 'UNIX_TIMESTAMP(r.start_time) AS start_time, r.round_number '
       . 'FROM `match` AS m '
       . 'INNER JOIN round AS r ON r.id = m.round_id '
       . 'INNER JOIN pod AS p ON p.id = r.pod_id '
@@ -74,7 +75,8 @@ class Pod {
           $rounds[$roundId] = [
             'roundId' => $roundId,
             'roundNumber' => $match['round_number'],
-            'matches' => []
+            'matches' => [],
+            'startTime' => $match['start_time']
           ];
         }
         // Don't add a match twice even though they appear twice is resultset.
@@ -129,14 +131,22 @@ class Pod {
     return (D()->value($sql) == 0);
   }
 
+  public function minsLeft() {
+    if (!$this->rounds) {
+      return null;
+    }
+    $startTime = reset($this->rounds)['startTime'];
+    return round(($startTime - time()) / 60) + C()->minsinround();
+  }
+
   private function players() {
     return $this->players;
   }
 
   private function createRound() {
     $roundNumber = $this->getRoundNumber() + 1;
-    $sql = 'INSERT INTO round (pod_id, round_number) VALUES '
-      . '(' . Q($this->podId) . ', ' . Q($roundNumber) . ')';
+    $sql = 'INSERT INTO round (pod_id, start_time, round_number) VALUES '
+      . '(' . Q($this->podId) . ', NOW(), ' . Q($roundNumber) . ')';
     $this->t->execute($sql);
     return $this->t->id();
   }
