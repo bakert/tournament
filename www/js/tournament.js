@@ -5,6 +5,7 @@ this.__internal.buttons[1].element.innerHTML=c.cancel);break;case"reverseButtons
 var TOURNAMENT = {
   'init': function () {
     TOURNAMENT.setupDropConfirm();
+    TOURNAMENT.updateTimeInRound();
   },
   'setupDropConfirm': function () {
     alertify.defaults.transition = "slide";
@@ -19,6 +20,15 @@ var TOURNAMENT = {
         function () { return true; }
       ).set('labels', { 'ok': 'Drop', 'cancel': 'Cancel' });
       return false;
+  },
+  'updateTimeInRound': function () {
+    var now = new Date().getTime() / 1000,
+      el = $('[data-end-time]');
+    if (el.size() === 0) {
+      return;
+    }
+    el.html(Math.round((el.data('endTime') - now) / 60));
+    setTimeout(TOURNAMENT.updateTimeInRound, 1000);
   }
 };
 

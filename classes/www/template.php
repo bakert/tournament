@@ -94,6 +94,7 @@ class Template {
     if ($status['minsLeft'] === 0) {
       $status['minsLeft'] = " 0"; # Gross way to convince mustache to display 0.
     }
+    $status['endTime'] = $rs[0]['start_time'] + (C()->minsInRound() * 60);
     $status['roundNumber'] = $rs[0]['round_number'];
     $sql = 'SELECT pm.match_id '
       . 'FROM player_match AS pm '

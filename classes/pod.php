@@ -131,11 +131,26 @@ class Pod {
     return (D()->value($sql) == 0);
   }
 
-  public function minsLeft() {
+  public function startTime() {
     if (!$this->rounds) {
       return null;
     }
-    $startTime = reset($this->rounds)['startTime'];
+    return reset($this->rounds)['startTime'];
+  }
+
+  public function endTime() {
+    $startTime = $this->startTime();
+    if (!$startTime) {
+      return null;
+    }
+    return $startTime + (C()->minsInRound() * 60);
+  }
+
+  public function minsLeft() {
+    $startTime = $this->startTime();
+    if (!$startTime) {
+      return null;
+    }
     return round(($startTime - time()) / 60) + C()->minsinround();
   }
 
