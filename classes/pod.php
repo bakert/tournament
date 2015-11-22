@@ -143,7 +143,7 @@ class Pod {
     if (!$startTime) {
       return null;
     }
-    return $startTime + (C()->minsInRound() * 60);
+    return $startTime + (C()->minsinround() * 60);
   }
 
   public function minsLeft() {
