@@ -1,7 +1,7 @@
 <?php
 
 # Pairings can take a long time.
-ini_set('max_execution_time', 120);
+ini_set('max_execution_time', 0);
 date_default_timezone_set('UTC');
 
 require_once(__DIR__ . '/vendor/autoload.php');
