@@ -1,5 +1,6 @@
 =Known Bugs
 - Character encoding is a bit messed up somewhere. See "BarÄ±ÅŸ Kaya". It's what we have stored so it's to do with getting it from FB and storing.
+- You can't unpair a round with a bye in it because the code sets up the bye result immediately. Ignore byes when checking if unpair should be allowed.
 
 =Features
 - Notify players when pods are determined.
