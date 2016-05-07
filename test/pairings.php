@@ -43,12 +43,12 @@ function playRound($players, $lastRound = false) {
     // Simulate drops
     if (mt_rand(0, 5) !== 0 && $pairing[0]['playerId'] !== 0) {
       $nextRoundPlayers[] = $pairing[0];
-    } else if ($pairing[0]['playerId'] !== 0) {
+    } elseif ($pairing[0]['playerId'] !== 0) {
       echo $pairing[0]['playerId'] . " drops\n";
     }
     if (mt_rand(0, 5) !== 0 && $pairing[1]['playerId'] !== 0) {
       $nextRoundPlayers[] = $pairing[1];
-    } else if ($pairing[1]['playerId'] !== 0) {
+    } elseif ($pairing[1]['playerId'] !== 0) {
       echo $pairing[1]['playerId'] . " drops\n";
     }
   }
