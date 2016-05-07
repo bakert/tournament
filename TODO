@@ -30,6 +30,7 @@
 - Separate dir for partials if there are going to be a bunch.
 - Some consistency about how we handle _GET params being compared to ints.
 - Time left in the round and end time are calculated the same way in two places and grossly manipulated to show "0" in two places - share in some fashion.
+- The confusion between underscored_names and camelCase as array keys is not worth it. Sometimes we just want to pass database results straight to the template and I think that should be ok.
 
 =Wontfix
 - Getting the bye a second time and playing someone you have played before are rated the same but it's actually worse to have the bye a second time, I think? More of a theoretical bug than practical.
