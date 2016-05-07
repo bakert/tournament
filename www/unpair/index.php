@@ -8,9 +8,8 @@ class Unpair extends Page {
         return R('/');
     }
     $sql = 'DELETE FROM round WHERE id = ' . Q($_GET['round_id']);
-    echo $sql;
     D()->execute($sql);
-    return R('/'); //BAKERT should really send to pod page here.
+    return R('/pod/', ['pod_id' => $_GET['pod_id']]);
   }
 }
 

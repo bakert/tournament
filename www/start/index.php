@@ -17,7 +17,7 @@ class Start extends Page {
       return R('/');
     }
     (new Pods())->createPods($eventId);
-    R('/');
+    R('/event/', ['event_id' => $eventId]);
   }
 }
 
