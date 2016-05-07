@@ -35,7 +35,6 @@ class AddPlayer extends Page {
 
   private function addPlayerToPod($playerInfo, $podInfo) {
     list($playerId, $name, $url) = unserialize($playerInfo);
-    echo $url;
     list($eventId, $podId) = unserialize($podInfo);
     (new Events())->signUp($eventId, $playerId, $name, $url);
     $sql = 'SELECT MAX(seat) + 1 AS seat '
