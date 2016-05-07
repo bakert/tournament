@@ -17,7 +17,10 @@ class PodPage extends Page {
     }
     if (A()->isAdmin() && $pod->awaitingPairings()) {
       $args['pairUrl'] = U('/pair/', false, ['pod_id' => $podId]);
+    } elseif (A()->isAdmin() && $pod->canBeUnpaired()) {
+      $args['unpairUrl'] = U('/unpair/', false, ['round_id' => $pod->latestRound()['roundId']]);
     }
+
     $results = new Results();
     foreach ($args['rounds'] as &$round) {
       foreach ($round['matches'] as &$match) {

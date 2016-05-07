@@ -1,5 +1,6 @@
 <h2>Pod {{podId}}</h2>
 {{#pairUrl}}<p><a class="btn btn-warning" href="{{pairUrl}}">Pair Next Round</a>{{/pairUrl}}
+{{#unpairUrl}}<form class="inline" action="{{unpairUrl}}" method="post"><input class="btn btn-warning" type="submit" value="Unpair"></form>{{/unpairUrl}}
 {{#minsLeft}}<p>{{>timeOnTheRound}}</p>{{/minsLeft}}
 {{#rounds}}
   <h3>Round {{roundNumber}}</h3>

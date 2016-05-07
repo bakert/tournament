@@ -1,4 +1,5 @@
 .bg-info { padding: 15px; padding-bottom: 8px; border: 1px solid #000 }
+form.inline { margin: 0; padding: 0 }
 .table>tbody>tr>td { vertical-align: middle } /* override bootstrap */
 
 /**

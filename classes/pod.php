@@ -131,6 +131,16 @@ class Pod {
     return (D()->value($sql) == 0);
   }
 
+  public function canBeUnpaired() {
+    $hasResults = false;
+    foreach ($this->latestRound()['matches'] as $match) {
+      if ($match['wins'] !== null || $match['opponentWins'] !== null) {
+        $hasResults = true;
+      }
+    }
+    return !$this->awaitingPairings() && !$hasResults;
+  }
+
   public function startTime() {
     if (!$this->rounds) {
       return null;
@@ -154,7 +164,11 @@ class Pod {
     return round(($startTime - time()) / 60) + C()->minsinround();
   }
 
-  private function players() {
+  public function latestRound() {
+    return reset($this->rounds);
+  }
+
+  public function players() {
     return $this->players;
   }
 
