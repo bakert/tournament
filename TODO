@@ -20,7 +20,7 @@
 - Allow un-drop if it's not too late.
 
 =Internal
-- Use POST not GET for write actions (start event, etc.)
+- Use POST not GET for write actions (start event, etc.) Convert to use <form class="inline" ... as unstart and unpair do.
 - Checking for admin/required params/etc. should be in Page or a trait or something similar
 - db code is returning strings for COUNT(*) in awaitingPairings which is bad.
 - Opponent profile pic not using profilepic is gross
