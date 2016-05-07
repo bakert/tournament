@@ -1,4 +1,5 @@
 =Known Bugs
+- Character encoding is a bit messed up somewhere. See "BarÄ±ÅŸ Kaya". It's what we have stored so it's to do with getting it from FB and storing.
 
 =Features
 - Notify players when pods are determined.

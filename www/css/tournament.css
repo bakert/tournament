@@ -1,4 +1,5 @@
-.bg-info { padding: 15px; padding-bottom: 8px; border: 1px solid #000;}
+.bg-info { padding: 15px; padding-bottom: 8px; border: 1px solid #000 }
+.table>tbody>tr>td { vertical-align: middle } /* override bootstrap */
 
 /**
  * alertifyjs 1.5.0 http://alertifyjs.com
