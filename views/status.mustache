@@ -29,9 +29,12 @@
           </td>
           {{#isAdmin}}
             <td>
-              {{#startable}}
+              {{#startUrl}}
                 <a class="btn btn-warning" href="{{startUrl}}">Start</a>
-              {{/startable}}
+              {{/startUrl}}
+              {{#unstartUrl}}
+                <form class="inline" action="{{unstartUrl}}" method="post"><input class="btn btn-warning" type="submit" value="Unstart"></form>
+              {{/unstartUrl}}
               {{^started}}
                 <a class="btn btn-warning" href="{{cancelUrl}}">Cancel</a>
               {{/started}}

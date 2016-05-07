@@ -75,6 +75,28 @@ class Event {
     return $this->started;
   }
 
+  public function canBeStarted() {
+    return !$this->started() && count($this->players()) > 1;
+  }
+
+  public function canBeUnstarted() {
+    if (!$this->started) {
+      return false;
+    }
+    if (!$this->pods) {
+      return true;
+    }
+    foreach ($this->pods as $pod) {
+      $pod = new Pod($pod['players'][0]['podId']);
+      foreach ($pod->players() as $player) {
+        if ($player['points'] > 0) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   public function players() {
     return $this->players;
   }

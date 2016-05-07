@@ -4,6 +4,10 @@
 
 {{#topDropUrl}}<p><a class="btn btn-primary drop" href="{{topDropUrl}}">Drop</a></p>{{/topDropUrl}}
 
+{{#startUrl}}<p><a class="btn btn-warning" href="{{startUrl}}">Start Event</a></p>{{/startUrl}}
+{{#unstartUrl}}<form  action="{{unstartUrl}}" method="post"><input type="submit" class="btn btn-warning" value="Unstart Event"></form>{{/unstartUrl}}
+{{#endUrl}}<p><a class="btn btn-warning" href="{{endUrl}}">End Event</a></p>{{/endUrl}}
+
 {{#pods}}
   {{#podUrl}}<a href="{{podUrl}}"><h3>Pod {{podId}}</h3></a>{{/podUrl}}
   <table class="table table-striped">
@@ -26,5 +30,3 @@
   {{#pairUrl}}<p><a class="btn btn-warning" href="{{pairUrl}}">Pair Next Round</a></p>{{/pairUrl}}
 {{/pods}}
 
-{{#startUrl}}<p><a class="btn btn-warning" href="{{startUrl}}">Start Event</a></p>{{/startUrl}}
-{{#endUrl}}<p><a class="btn btn-warning" href="{{endUrl}}">End Event</a></p>{{/endUrl}}

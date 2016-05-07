@@ -26,11 +26,15 @@ class Index extends Page {
     $args['events'] = (new Events())->currentEvents(S()->id());
     $args['signedUpForAny'] = false;
     foreach ($args['events'] as &$event) {
+      $fullEvent = new Event($event['id']);
       $event['eventUrl'] = U('/event/', false, ['event_id' => $event['id']]);
       $event['signUpUrl'] = U('/signup/', false, ['event_id' => $event['id']]);
-      $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
       $event['cancelUrl'] = U('/cancel/', false, ['event_id' => $event['id']]);
-      $event['startable'] = !$event['started'] && (int)$event['numPlayers'] > 1;
+      if ($fullEvent->canBeUnstarted()) {
+          $event['unstartUrl'] = U('/unstart/', false, ['event_id' => $event['id']]);
+      } elseif ($fullEvent->canBeStarted()) {
+        $event['startUrl'] = U('/start/', false, ['event_id' => $event['id']]);
+      }
       $args['signedUpForAny'] = $args['signedUpForAny'] || $event['signedUp'];
     }
     return T()->status($args);

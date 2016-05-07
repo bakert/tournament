@@ -3,7 +3,7 @@
 
 =Features
 - Notify players when pods are determined.
-- Ability to undo/go back and re-pair, etc.
+- Ability to undo individual match scores.
 - "Pair all pods" button and/or "Pair all events" button
 - Admin status should tell them everything that needs doing (event starting, round pairings, outstanding results, maybe something to do with dropping, time on the rounds)
 - Past events - show results.
