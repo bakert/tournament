@@ -8,6 +8,7 @@ class Singletons {
       'A' => 'Auth',
       'C' => 'Config',
       'D' => 'Db',
+      'F' => 'Facebook',
       'L' => 'Log',
       'R' => 'Redirect',
       'S' => 'Session',

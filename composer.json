@@ -1,6 +1,6 @@
 {
   "require": {
-    "facebook/php-sdk-v4" : "4.0.*",
+    "facebook/graph-sdk" : "^5.0",
     "mustache/mustache": "~2.5",
     "monolog/monolog": "^1.13"
   }

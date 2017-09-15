@@ -60,9 +60,7 @@ class Session {
       }
     }
     try {
-      $me = (new Facebook\FacebookRequest(
-        new Facebook\FacebookSession($this->get('accessToken')), 'GET', '/me'
-      ))->execute()->getGraphObject(Facebook\GraphUser::className());
+      $me = F()->get('/me')->getGraphUser();
     } catch (Facebook\FacebookAuthorizationException $e) {
       return null;
     }

@@ -4,14 +4,12 @@ require_once(__DIR__ . '/../tournament.php');
 
 session_start();
 
-Facebook\FacebookSession::setDefaultApplication(
-  C()->fbappid(),
-  C()->fbappsecret()
-);
-
-
 function A() {
   return Singletons::A();
+}
+
+function F() {
+  return Singletons::F();
 }
 
 function R($path, $queryString = []) {

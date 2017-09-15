@@ -19,7 +19,7 @@ class Auth {
   }
 
   public function externalSignInUrl() {
-    $helper = new Facebook\FacebookRedirectLoginHelper($this->signInUrl());
-    return $helper->getLoginUrl();
+    $helper = F()->getRedirectLoginHelper();
+    return $helper->getLoginUrl($this->signInUrl(), []);
   }
 }
