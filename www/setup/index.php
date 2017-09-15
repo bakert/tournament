@@ -112,7 +112,7 @@ class Setup {
       echo '<p>Issue the following commands in MySQL, then reload this '
         . 'page:</p>'
         . '<pre>'
-        . 'CREATE DATABASE tournament;'
+        . 'CREATE DATABASE ' . C()->databasename() . ';'
         . 'GRANT ALL ON ' . C()->databasename() . '' . ".* TO "
         . C()->databaseusername() . "@" . C()->databasehost()
         . " IDENTIFIED BY " . Q(C()->databasepassword()) . ';'
