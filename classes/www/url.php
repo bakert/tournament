@@ -4,7 +4,7 @@ class Url {
   public function u($path = '/', $absolute = false, $querystring = []) {
     $url = '';
     if ($absolute) {
-      $url = C()->protocol('http') . '://' . C()->hostname();
+      $url = C()->protocol('https') . '://' . C()->hostname();
     }
     $url .= C()->basepath() . $path;
     if ($querystring) {
