@@ -1,6 +1,8 @@
 .bg-info { padding: 15px; padding-bottom: 8px; border: 1px solid #000 }
 form.inline { margin: 0; padding: 0 }
 .table>tbody>tr>td { vertical-align: middle } /* override bootstrap */
+.footer { margin-top: 1em; }
+.footer p { margin-bottom: 0; }
 
 /**
  * alertifyjs 1.5.0 http://alertifyjs.com

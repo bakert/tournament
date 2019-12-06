@@ -38,6 +38,7 @@ class Template {
     if (S()->isSignedIn()) {
       $args['signOutUrl'] = U('/signout/');
     }
+    $args['privacyUrl'] = U('/privacy/');
     return $this->engine->render('footer', $args);
   }
 
