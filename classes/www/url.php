@@ -5,6 +5,9 @@ class Url {
     $url = '';
     if ($absolute) {
       $url = C()->protocol('https') . '://' . C()->hostname();
+      if (C()->port('80') !== '80') {
+        $url .= ':' . C()->port();
+      }
     }
     $url .= C()->basepath() . $path;
     if ($querystring) {
